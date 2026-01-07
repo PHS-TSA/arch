@@ -1,0 +1,7 @@
+{
+    "godotFormatter.enabled": true,
+    "godotFormatter.enableLinter": true,
+    "godotFormatter.safe": false,
+    "godotFormatter.reorderCode": true,
+    "godotFormatter.useSpaces": false,
+}
