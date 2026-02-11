@@ -8,10 +8,15 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Arch"
-config/features=PackedStringArray("4.5", "GL Compatibility")
+run/main_scene="uid://0ol4qu7b2ja8"
+config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="uid://ifomx3yfyvk8"
 
 [debug]
