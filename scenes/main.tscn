@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://nhtcdno1ggac" path="res://scenes/ground.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://c2xhoyi0dd6ly" path="res://scenes/player.tscn" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://befpxx10h7cn0" path="res://scenes/object.tscn" id="4_jyhfs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -31,8 +32,5 @@ transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.0026807785, -9.536743e-07, 
 [node name="CharacterBody3D" parent="." unique_id=603631026 instance=ExtResource("2_0wfyh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.54832625, 0)
 
-[node name="Camera3D" type="Camera3D" parent="CharacterBody3D" unique_id=1366572285]
-transform = Transform3D(0.9997248, 0.0074480805, -0.022249483, 0.00061069714, 0.9396974, 0.3420066, 0.023455076, -0.341926, 0.9394341, -0.099488616, 1.117457, 0.8983754)
-current = true
-fov = 85.22021
-far = 100.0
+[node name="object" parent="." unique_id=1199919791 instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 0)
