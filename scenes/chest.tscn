@@ -54,5 +54,5 @@ mesh = SubResource("SphereMesh_gqd3d")
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="." to="CollisionShape3D" method="_on_chest_body_entered"]
 [connection signal="body_entered" from="." to="Node3D" method="_on_chest_body_entered"]
-[connection signal="body_entered" from="powerUp" to="." method="_on_power_up_body_entered"]
 [connection signal="body_entered" from="powerUp" to="powerUp" method="_on_body_entered"]
+[connection signal="power_up_collected" from="powerUp" to="." method="_on_power_up_collected"]

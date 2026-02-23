@@ -1,7 +1,11 @@
 {
-    "godotFormatter.enabled": true,
-    "godotFormatter.enableLinter": true,
-    "godotFormatter.safe": false,
-    "godotFormatter.reorderCode": true,
-    "godotFormatter.useSpaces": false,
+  "[gdscript]": {
+    "editor.defaultFormatter": "DoHe.godot-format"
+  },
+  "editor.formatOnSave": true,
+  "godotFormatter.enabled": true,
+  "godotFormatter.enableLinter": true,
+  "godotFormatter.safe": false,
+  "godotFormatter.reorderCode": true,
+  "godotFormatter.useSpaces": false
 }
