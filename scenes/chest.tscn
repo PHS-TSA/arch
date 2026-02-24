@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c063aklgsrduy" path="res://scenes/chest.gd" id="1_sy5e1"]
 [ext_resource type="Script" uid="uid://c82yx2p88p002" path="res://scenes/power_up.gd" id="2_gqd3d"]
-[ext_resource type="Script" uid="uid://bef3mr64b0180" path="res://scenes/temp_chest_hinge.gd" id="2_yue2o"]
+[ext_resource type="Script" uid="uid://bef3mr64b0180" path="res://scenes/chest_hinge.gd" id="2_yue2o"]
 [ext_resource type="Script" uid="uid://c80x18apyfnyp" path="res://scenes/chest_collision.gd" id="3_yue2o"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_sy5e1"]
