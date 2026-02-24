@@ -1,34 +1,28 @@
 [gd_scene format=3 uid="uid://jmjlq1p7rbbb"]
 
 [ext_resource type="Script" uid="uid://c063aklgsrduy" path="res://scenes/chest.gd" id="1_sy5e1"]
-[ext_resource type="Script" uid="uid://c82yx2p88p002" path="res://scenes/powerup.gd" id="2_gqd3d"]
 [ext_resource type="Script" uid="uid://bef3mr64b0180" path="res://scenes/chest_hinge.gd" id="2_yue2o"]
 [ext_resource type="Script" uid="uid://c80x18apyfnyp" path="res://scenes/chest_collision.gd" id="3_yue2o"]
+[ext_resource type="PackedScene" uid="uid://cjdeo5yteb4jx" path="res://scenes/powerup.tscn" id="4_yue2o"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_sy5e1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tbgi4"]
 size = Vector3(1.5, 1, 1)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_sy5e1"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sugp2"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_gqd3d"]
-
-[node name="chest" type="Area3D" unique_id=1127407156]
+[node name="Chest" type="Area3D" unique_id=1127407156]
 script = ExtResource("1_sy5e1")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1988048454]
+[node name="CarcaseMesh" type="MeshInstance3D" parent="." unique_id=1988048454]
 transform = Transform3D(1.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_sy5e1")
 
-[node name="Node3D" type="Node3D" parent="." unique_id=1291049357]
+[node name="Lid" type="Node3D" parent="." unique_id=1291049357]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -0.5)
 rotation_edit_mode = 2
 script = ExtResource("2_yue2o")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Node3D" unique_id=2139869592]
+[node name="LidMesh" type="MeshInstance3D" parent="Lid" unique_id=2139869592]
 transform = Transform3D(1.5, 0, 0, 0, 0.25, 0, 0, 0, 1, 0, 0.099999994, 0.5)
 mesh = SubResource("BoxMesh_sy5e1")
 
@@ -37,24 +31,10 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 shape = SubResource("BoxShape3D_tbgi4")
 script = ExtResource("3_yue2o")
 
-[node name="powerUp" type="Area3D" parent="." unique_id=258685692]
-visible = false
-monitoring = false
-monitorable = false
-script = ExtResource("2_gqd3d")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="powerUp" unique_id=1142115821]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-shape = SubResource("SphereShape3D_sy5e1")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="powerUp" unique_id=661928150]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.26103085, 0)
-material_override = SubResource("StandardMaterial3D_sugp2")
-mesh = SubResource("SphereMesh_gqd3d")
+[node name="Powerup" parent="." unique_id=376149357 instance=ExtResource("4_yue2o")]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="Lid" method="_on_chest_body_entered"]
 [connection signal="body_entered" from="." to="CollisionShape3D" method="_on_chest_body_entered"]
-[connection signal="body_entered" from="." to="Node3D" method="_on_chest_body_entered"]
-[connection signal="chest_opened" from="." to="powerUp" method="reveal"]
-[connection signal="body_entered" from="powerUp" to="powerUp" method="_on_body_entered"]
-[connection signal="powerup_collected" from="powerUp" to="." method="_on_powerup_collected"]
+[connection signal="chest_opened" from="." to="Powerup" method="reveal"]
+[connection signal="powerup_collected" from="Powerup" to="." method="_on_powerup_collected"]

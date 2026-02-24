@@ -1,13 +1,13 @@
 extends Area3D
 
-signal powerup_collected(powerup: Inventory.PowerUp)
+signal powerup_collected(powerup: Inventory.Powerup)
 
-var powerup: Inventory.PowerUp
+var powerup: Inventory.Powerup
 var collected: bool = false
 
 
 func _ready() -> void:
-	powerup = Inventory.PowerUp.values().pick_random()
+	powerup = Inventory.Powerup.values().pick_random()
 
 
 func reveal() -> void:

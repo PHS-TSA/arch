@@ -1,7 +1,7 @@
 class_name Inventory
 extends Object
 
-enum PowerUp {
+enum Powerup {
 	FREEZE,
 	SPEED,
 	SLOW,
@@ -9,8 +9,8 @@ enum PowerUp {
 	SHOOT,
 }
 
-var inventory: Array[PowerUp] = []
+var inventory: Array[Powerup] = []
 
 
-func _on_powerup_collected(powerup: PowerUp) -> void:
+func _on_powerup_collected(powerup: Powerup) -> void:
 	inventory.append(powerup)
