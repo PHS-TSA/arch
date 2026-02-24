@@ -12,5 +12,5 @@ enum PowerUp {
 var inventory: Array[PowerUp] = []
 
 
-func _on_power_up_collected(power_up: PowerUp) -> void:
-	inventory.append(power_up)
+func _on_powerup_collected(powerup: PowerUp) -> void:
+	inventory.append(powerup)

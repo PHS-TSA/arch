@@ -1,6 +1,6 @@
 extends Area3D
 
-signal power_up_collected(power_up: Inventory.PowerUp)
+signal powerup_collected(powerup: Inventory.PowerUp)
 
 var powerup: Inventory.PowerUp
 var collected: bool = false
@@ -25,4 +25,4 @@ func _on_body_entered(body: Node3D) -> void:
 	collected = true
 	set_deferred("monitoring", false)
 	visible = false
-	power_up_collected.emit(powerup)
+	powerup_collected.emit(powerup)

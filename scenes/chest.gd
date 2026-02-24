@@ -1,6 +1,6 @@
 extends Area3D
 
-signal power_up_collected(power_up: Inventory.PowerUp)
+signal powerup_collected(powerup: Inventory.PowerUp)
 signal chest_opened
 
 
@@ -11,6 +11,6 @@ func _on_body_entered(body: Node3D) -> void:
 		set_deferred("monitorable", false)
 
 
-func _on_power_up_collected(power_up: Inventory.PowerUp) -> void:
-	power_up_collected.emit(power_up)
+func _on_powerup_collected(powerup: Inventory.PowerUp) -> void:
+	powerup_collected.emit(powerup)
 	self.queue_free()

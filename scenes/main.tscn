@@ -37,4 +37,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 [node name="chest" parent="." unique_id=1127407156 instance=ExtResource("4_jyhfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -0.25, -0.5)
 
-[connection signal="power_up_collected" from="chest" to="." method="_on_power_up_collected"]
+[connection signal="powerup_collected" from="chest" to="." method="_on_powerup_collected"]
