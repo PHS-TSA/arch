@@ -10,6 +10,12 @@ func _ready() -> void:
 	powerup = Inventory.PowerUp.values().pick_random()
 
 
+func reveal() -> void:
+	visible = true
+	set_deferred("monitoring", true)
+	set_deferred("monitorable", true)
+
+
 func _on_body_entered(body: Node3D) -> void:
 	if collected:
 		return
@@ -17,6 +23,6 @@ func _on_body_entered(body: Node3D) -> void:
 		return
 
 	collected = true
-	monitoring = false
+	set_deferred("monitoring", false)
 	visible = false
 	power_up_collected.emit(powerup)

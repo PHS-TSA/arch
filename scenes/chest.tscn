@@ -39,6 +39,8 @@ script = ExtResource("3_yue2o")
 
 [node name="powerUp" type="Area3D" parent="." unique_id=258685692]
 visible = false
+monitoring = false
+monitorable = false
 script = ExtResource("2_gqd3d")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="powerUp" unique_id=1142115821]
@@ -54,5 +56,6 @@ mesh = SubResource("SphereMesh_gqd3d")
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="." to="CollisionShape3D" method="_on_chest_body_entered"]
 [connection signal="body_entered" from="." to="Node3D" method="_on_chest_body_entered"]
+[connection signal="chest_opened" from="." to="powerUp" method="reveal"]
 [connection signal="body_entered" from="powerUp" to="powerUp" method="_on_body_entered"]
 [connection signal="power_up_collected" from="powerUp" to="." method="_on_power_up_collected"]
