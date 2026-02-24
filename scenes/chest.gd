@@ -13,4 +13,4 @@ func _on_body_entered(body: Node3D) -> void:
 
 func _on_powerup_collected(powerup: Inventory.Powerup) -> void:
 	powerup_collected.emit(powerup)
-	self.queue_free()
+	queue_free()
