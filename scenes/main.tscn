@@ -18,6 +18,9 @@ sky = SubResource("Sky_sugp2")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyhfs"]
+bg_color = Color(0.4491729, 0.6880101, 0.5811239, 1)
+
 [node name="Main" type="Node3D" unique_id=1416680920]
 script = ExtResource("1_tbgi4")
 
@@ -36,5 +39,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Chest" parent="." unique_id=1127407156 instance=ExtResource("4_jyhfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -0.25, -0.5)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1742829395]
+
+[node name="Stamina_Bar" type="ProgressBar" parent="CanvasLayer" unique_id=1299334316]
+unique_name_in_owner = true
+offset_left = 2.0
+offset_top = 585.0
+offset_right = 374.0
+offset_bottom = 648.0
+theme_override_styles/background = SubResource("StyleBoxFlat_jyhfs")
+max_value = 50.0
 
 [connection signal="powerup_collected" from="Chest" to="." method="_on_powerup_collected"]
