@@ -1,12 +1,22 @@
 class_name Player
 extends CharacterBody3D
 
+@onready var stamina_bar: ProgressBar = %Stamina_Bar
+
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 var max_speed = 5
-var sprint_speed = 9
+var sprint_speed = 8
 var walk_speed = 5
+
+var stamina: float = 50.0
+var max_stamina: float = 50.0
+var stamina_drain: float = 20.0
+var stamina_regen: float = 10.0
+
+var is_exhausted: bool = false
+var recovery_threshold: float = 20.0
 
 
 func _physics_process(delta: float) -> void:
@@ -26,6 +36,24 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backwards")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
+	if stamina <= 0:
+		is_exhausted = true
+		
+	
+	if is_exhausted and stamina >= recovery_threshold:
+		is_exhausted = false
+
+	
+	if not is_exhausted and Input.is_action_pressed("sprint") and direction != Vector3.ZERO:
+		max_speed = sprint_speed
+		stamina -= stamina_drain * delta
+	else:
+		max_speed = walk_speed
+		stamina += stamina_regen * delta
+	
+	stamina = clamp(stamina, 0, max_stamina)
+	
 	if direction:
 		velocity.x = direction.x * max_speed
 		velocity.z = direction.z * max_speed
@@ -33,5 +61,14 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, max_speed)
 		velocity.z = move_toward(velocity.z, 0, max_speed)
 
+	if stamina_bar:
+		stamina_bar.value = stamina
+		
+		if is_exhausted:
+			stamina_bar.modulate = Color.RED
+		else:
+			stamina_bar.modulate = Color.WHITE
+
 	move_and_slide()
+	print("Stamina: ", int(stamina))
 	
