@@ -1,6 +1,6 @@
 class_name Player
 extends CharacterBody3D
-
+#.
 @onready var stamina_bar: ProgressBar = %Stamina_Bar
 @onready var spring_arm_3d: SpringArm3D = $SpringArm3D
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
