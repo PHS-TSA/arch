@@ -2,9 +2,13 @@ class_name Player
 extends CharacterBody3D
 
 @onready var stamina_bar: ProgressBar = %Stamina_Bar
+@onready var spring_arm_3d: SpringArm3D = $SpringArm3D
+@onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
+
+const LERP_SPEED = 10.0 
 
 var max_speed = 5
 var sprint_speed = 8
@@ -35,7 +39,11 @@ func _physics_process(delta: float) -> void:
 
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backwards")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	#var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var look_direction = spring_arm_3d.global_transform.basis
+	var direction := (look_direction * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	direction.y = 0 
+	
 	
 	if stamina <= 0:
 		is_exhausted = true
@@ -57,6 +65,9 @@ func _physics_process(delta: float) -> void:
 	if direction:
 		velocity.x = direction.x * max_speed
 		velocity.z = direction.z * max_speed
+	
+		var target_angle = atan2(direction.x, direction.z)
+		mesh_instance_3d.rotation.y = lerp_angle(mesh_instance_3d.rotation.y, target_angle, delta * LERP_SPEED)
 	else:
 		velocity.x = move_toward(velocity.x, 0, max_speed)
 		velocity.z = move_toward(velocity.z, 0, max_speed)

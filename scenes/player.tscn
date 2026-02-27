@@ -8,7 +8,7 @@ radius = 0.25
 height = 1.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i3pqv"]
-radius = 0.25
+radius = 0.25830078
 height = 1.0
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=2095096525]
@@ -16,6 +16,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9034537, 0)
 script = ExtResource("1_3vyb7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=770933360]
+transform = Transform3D(1, 0, 0, 0, 0.9638958, 0.26627958, 0, -0.26627958, 0.9638958, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_onrkg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=453743573]
@@ -27,4 +28,4 @@ spring_length = 3.0
 script = ExtResource("2_g2els")
 
 [node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=1985213410]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+transform = Transform3D(1, 0, 0, 0, 0.95233196, 0.3050638, 0, -0.3050638, 0.9523319, 0, -0.3008945, 1.2000238)
