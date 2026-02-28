@@ -22,6 +22,7 @@ glow_enabled = true
 bg_color = Color(0.4491729, 0.6880101, 0.5811239, 1)
 
 [node name="Main" type="Node3D" unique_id=1416680920]
+top_level = true
 script = ExtResource("1_tbgi4")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1714936284]
