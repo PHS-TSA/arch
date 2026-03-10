@@ -21,7 +21,6 @@ func _on_body_entered(body: Node3D) -> void:
 		return
 	if not body is Player:
 		return
-
 	collected = true
 	set_deferred("monitoring", false)
 	visible = false
