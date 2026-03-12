@@ -22,6 +22,7 @@ var stamina_regen: float = 10.0
 var is_exhausted: bool = false
 var recovery_threshold: float = 20.0
 
+var jump_mult = 1.0
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -30,7 +31,9 @@ func _physics_process(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y = JUMP_VELOCITY * jump_mult
+		if jump_mult != 1.0:
+			jump_mult = 1.0
 		
 	if Input.is_action_pressed("sprint"):
 		max_speed = sprint_speed
@@ -81,5 +84,15 @@ func _physics_process(delta: float) -> void:
 			stamina_bar.modulate = Color.WHITE
 
 	move_and_slide()
-	print("Stamina: ", int(stamina))
 	
+
+
+func _on_powerup_used(powerup: Inventory.Powerup) -> void:
+	if powerup == 1:
+		walk_speed *= 2
+		sprint_speed *= 2
+		await get_tree().create_timer(2.5).timeout
+		walk_speed /= 2
+		sprint_speed /= 2
+	elif powerup == 3:
+		jump_mult = 1.5

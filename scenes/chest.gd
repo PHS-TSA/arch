@@ -2,12 +2,12 @@ extends Area3D
 
 signal powerup_collected(powerup: Inventory.Powerup)
 signal chest_opened
-var cloned = false
+var cloned := false
 
 func _ready() -> void:
 	await get_tree().process_frame
 	if not cloned:
-		var copy = self.duplicate()
+		var copy := self.duplicate()
 		copy.position = Vector3(randf_range(-3, 16), self.position.y, randf_range(-2.5, 7.05))
 		copy.cloned = true
 		get_parent().add_child(copy)
@@ -21,6 +21,7 @@ func _on_body_entered(body: Node3D) -> void:
 
 func _on_powerup_collected(powerup: Inventory.Powerup) -> void:
 	powerup_collected.emit(powerup)
+	await get_tree().create_timer(0.3).timeout
 	var tween := create_tween()
 	var tween2 := create_tween()
 	tween.set_trans(Tween.TRANS_BACK)
