@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://qc0dqsu0jjb2"]
+
+[ext_resource type="Script" uid="uid://c8qxt45atdvd7" path="res://scenes/slot.gd" id="1_4v6ba"]
+[ext_resource type="Texture2D" uid="uid://ifomx3yfyvk8" path="res://icon.svg" id="2_ic0fu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ic0fu"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="Slot" type="Control" unique_id=1566776840]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_4v6ba")
+
+[node name="Panel" type="Panel" parent="." unique_id=150790151]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ic0fu")
+
+[node name="Powerup_Image" type="TextureRect" parent="Panel" unique_id=395392233]
+visible = false
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+scale = Vector2(0.315, 0.315)
+texture = ExtResource("2_ic0fu")
+expand_mode = 2

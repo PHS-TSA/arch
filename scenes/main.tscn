@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dyqrxc5w7krra" path="res://scripts/inventory.gd" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://c2xhoyi0dd6ly" path="res://scenes/player.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://jmjlq1p7rbbb" path="res://scenes/chest.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://bypx7ej0kk5y0" path="res://scenes/hotbar.tscn" id="5_tefeu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -52,4 +53,21 @@ offset_bottom = 648.0
 theme_override_styles/background = SubResource("StyleBoxFlat_jyhfs")
 max_value = 50.0
 
+[node name="Hotbar" parent="CanvasLayer" unique_id=507145534 instance=ExtResource("5_tefeu")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -80.0
+offset_right = 80.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(2, 2)
+pivot_offset = Vector2(80, 0)
+
 [connection signal="powerup_collected" from="Chest" to="." method="_on_powerup_collected"]
+[connection signal="powerup_collected" from="Chest" to="CanvasLayer/Hotbar" method="_on_powerup_collected"]
+[connection signal="powerup_used" from="CanvasLayer/Hotbar" to="CharacterBody3D" method="_on_powerup_used"]
