@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://342p5vqypcx4"]
+
+[ext_resource type="Script" uid="uid://de8uj3mc6vmjr" path="res://scenes/menu.gd" id="1_con2f"]
+[ext_resource type="Texture2D" uid="uid://btso7pevrc1fu" path="res://assets/menuBackground.png" id="2_mhnvy"]
+[ext_resource type="Texture2D" uid="uid://fp8o6a0210dp" path="res://assets/StartLogo.png" id="3_con2f"]
+[ext_resource type="Texture2D" uid="uid://d1jui1qfgrgeh" path="res://assets/Exit.png" id="4_mhnvy"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4ytvr"]
+texture = ExtResource("2_mhnvy")
+
+[node name="Menu" type="Control" unique_id=148732521]
+layout_mode = 3
+anchor_left = 0.016
+anchor_top = 0.018000001
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -18.432001
+offset_top = -11.6640005
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_con2f")
+
+[node name="Panel" type="Panel" parent="." unique_id=1124535549]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -578.0
+offset_top = -333.5
+offset_right = 578.0
+offset_bottom = 333.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_4ytvr")
+
+[node name="Button" type="Button" parent="." unique_id=1466830640]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -154.0
+offset_top = -30.0
+offset_right = 1119.0854
+offset_bottom = 220.00006
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.24000001, 0.24000001)
+theme_override_font_sizes/font_size = 34
+theme_override_icons/icon = ExtResource("3_con2f")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button2" type="Button" parent="." unique_id=1150364825]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.67200005
+anchor_right = 0.507
+anchor_bottom = 0.689
+offset_left = -144.00003
+offset_top = -68.456024
+offset_right = 1625.9363
+offset_bottom = 223.52798
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.16131614, 0.16131614)
+theme_override_font_sizes/font_size = 34
+theme_override_icons/icon = ExtResource("4_mhnvy")
+
+[connection signal="pressed" from="Button" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_exit_pressed"]
