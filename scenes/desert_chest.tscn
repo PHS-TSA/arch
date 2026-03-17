@@ -293,6 +293,7 @@ script = ExtResource("2_w7gla")
 [node name="Chest Body" type="MeshInstance3D" parent="." unique_id=2068476160]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 1, -1.2)
 mesh = SubResource("ArrayMesh_k6uy4")
+skeleton = NodePath("")
 
 [node name="RotationPoint" type="Node3D" parent="." unique_id=267983620]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 1.6, 0)
@@ -300,6 +301,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 1.6, 0)
 [node name="Lid" type="MeshInstance3D" parent="RotationPoint" unique_id=707584826]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.6, -1.2)
 mesh = SubResource("ArrayMesh_x67ck")
+skeleton = NodePath("")
 script = ExtResource("2_gcru2")
 
 [connection signal="chest_opened" from="." to="RotationPoint/Lid" method="_on_desert_chest_chest_opened"]
