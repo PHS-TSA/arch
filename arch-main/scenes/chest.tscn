@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://jmjlq1p7rbbb"]
+
+[ext_resource type="Script" uid="uid://c063aklgsrduy" path="res://scenes/chest.gd" id="1_sy5e1"]
+[ext_resource type="Script" uid="uid://c80x18apyfnyp" path="res://scenes/chest_collision.gd" id="3_yue2o"]
+[ext_resource type="PackedScene" uid="uid://6seiagt8l7v" path="res://scenes/desert_chest.tscn" id="4_yhylo"]
+[ext_resource type="PackedScene" uid="uid://cjdeo5yteb4jx" path="res://scenes/powerup.tscn" id="4_yue2o"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tbgi4"]
+size = Vector3(1.5, 1, 1)
+
+[node name="Chest" type="Area3D" unique_id=1127407156]
+script = ExtResource("1_sy5e1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=287303476]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_tbgi4")
+script = ExtResource("3_yue2o")
+
+[node name="Powerup" parent="." unique_id=376149357 instance=ExtResource("4_yue2o")]
+
+[node name="desertChest" parent="." unique_id=849689453 instance=ExtResource("4_yhylo")]
+transform = Transform3D(4.173708e-09, 0, -0.35, 0, 0.35, 0, 0.35, 0, 4.173708e-09, 0, 0, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="." to="CollisionShape3D" method="_on_chest_body_entered"]
+[connection signal="body_entered" from="." to="desertChest" method="_on_body_entered"]
+[connection signal="chest_opened" from="." to="Powerup" method="reveal"]
+[connection signal="powerup_collected" from="Powerup" to="." method="_on_powerup_collected"]
+[connection signal="powerup_collected" from="Powerup" to="desertChest" method="_on_powerup_collected"]
