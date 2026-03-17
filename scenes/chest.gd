@@ -2,7 +2,9 @@ extends Area3D
 
 signal powerup_collected(powerup: Inventory.Powerup)
 signal chest_opened
+
 var cloned := false
+
 
 func _ready() -> void:
 	await get_tree().process_frame
@@ -11,6 +13,7 @@ func _ready() -> void:
 		copy.position = Vector3(randf_range(-3, 16), self.position.y, randf_range(-2.5, 7.05))
 		copy.cloned = true
 		get_parent().add_child(copy)
+
 
 func _on_body_entered(body: Node3D) -> void:
 	if body is Player:
@@ -29,8 +32,8 @@ func _on_powerup_collected(powerup: Inventory.Powerup) -> void:
 	tween.tween_property(
 		self,
 		"scale",
-		Vector3(0,0,0),
-		1.0
+		Vector3(0, 0, 0),
+		1.0,
 	)
 	tween2.set_trans(Tween.TRANS_BACK)
 	tween2.set_ease(Tween.EASE_IN)
@@ -38,7 +41,7 @@ func _on_powerup_collected(powerup: Inventory.Powerup) -> void:
 		self,
 		"rotation:y",
 		20,
-		1.0
+		1.0,
 	)
 	await get_tree().create_timer(1.0).timeout
 	self.queue_free()

@@ -2,6 +2,7 @@ extends Node3D
 
 var opened: bool = false
 
+
 func _on_desert_chest_chest_opened(body: Node3D) -> void:
 	if body is Player:
 		if opened:
