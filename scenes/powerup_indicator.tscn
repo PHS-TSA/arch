@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://bhh17pt6k3e64"]
+
+[ext_resource type="Script" uid="uid://db5teyuuv37yx" path="res://scenes/powerup_indicator.gd" id="1_4s6gi"]
+[ext_resource type="Texture2D" uid="uid://crcqct1fri2mp" path="res://assets/2d/powerup_1.png" id="1_i7a5u"]
+[ext_resource type="Texture2D" uid="uid://cudgla7mm2e3i" path="res://assets/2d/powerup_2.png" id="2_4s6gi"]
+[ext_resource type="Texture2D" uid="uid://c30jt60bl7gni" path="res://assets/2d/powerup_3.png" id="3_hmfcd"]
+[ext_resource type="Texture2D" uid="uid://ki4gh200ythq" path="res://assets/2d/powerup_4.png" id="4_3aco3"]
+[ext_resource type="Texture2D" uid="uid://c0qs8jj7i5npj" path="res://assets/2d/powerup_5.png" id="5_nwhhv"]
+[ext_resource type="Texture2D" uid="uid://dpjso0dolju2m" path="res://assets/2d/powerup_outline.png" id="6_su8vh"]
+[ext_resource type="Script" uid="uid://nxgjlq2jbg5q" path="res://scenes/powerup_time.gd" id="9_3aco3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nprad"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_i7a5u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_4s6gi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hmfcd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3aco3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_nwhhv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_hmfcd"]
+script/source = "extends AnimatedSprite2D
+"
+
+[node name="Powerup_Indicator" type="Control" unique_id=1596142082]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_4s6gi")
+
+[node name="Powerup_Indication" type="AnimatedSprite2D" parent="." unique_id=1149892985]
+texture_filter = 1
+scale = Vector2(7.5, 7.5)
+sprite_frames = SubResource("SpriteFrames_nprad")
+script = SubResource("GDScript_hmfcd")
+
+[node name="Powerup_Time" type="Sprite2D" parent="." unique_id=170459936]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("6_su8vh")
+script = ExtResource("9_3aco3")
+
+[node name="Timer" type="Timer" parent="Powerup_Time" unique_id=1805759314]
+one_shot = true
+
+[connection signal="hide" from="Powerup_Time" to="." method="_on_powerup_time_hide"]
