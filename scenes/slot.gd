@@ -6,6 +6,7 @@ var holding := false
 
 func fill(powerup: Inventory.Powerup) -> void:
 	$Panel/Powerup_Image.visible = true
+	$Panel/Powerup_Image.frame = powerup
 	holding = true
 	held = powerup
 	get_parent().not_contains_except.erase(get_index())

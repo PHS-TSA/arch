@@ -23,6 +23,7 @@ var is_exhausted: bool = false
 var recovery_threshold: float = 20.0
 
 var jump_mult = 1.0
+signal jump_power
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -34,6 +35,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY * jump_mult
 		if jump_mult != 1.0:
 			jump_mult = 1.0
+			jump_power.emit()
 		
 	if Input.is_action_pressed("sprint"):
 		max_speed = sprint_speed

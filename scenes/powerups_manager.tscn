@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://db6cnt5b6dee3"]
+
+[ext_resource type="Script" uid="uid://7fd783xspu1t" path="res://scenes/powerups_manager.gd" id="1_on6iw"]
+[ext_resource type="PackedScene" uid="uid://bhh17pt6k3e64" path="res://scenes/powerup_indicator.tscn" id="1_r0osg"]
+
+[node name="Powerups_Manager" type="VBoxContainer" unique_id=473409895]
+offset_top = -480.0
+offset_right = 60.0
+offset_bottom = 120.0
+alignment = 2
+script = ExtResource("1_on6iw")
+
+[node name="Powerup_Indicator" parent="." unique_id=1596142082 instance=ExtResource("1_r0osg")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Powerup_Indicator2" parent="." unique_id=831388452 instance=ExtResource("1_r0osg")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Powerup_Indicator3" parent="." unique_id=1043805915 instance=ExtResource("1_r0osg")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Powerup_Indicator4" parent="." unique_id=1078341316 instance=ExtResource("1_r0osg")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Powerup_Indicator5" parent="." unique_id=1868045847 instance=ExtResource("1_r0osg")]
+layout_mode = 2
+size_flags_vertical = 3
