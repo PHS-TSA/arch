@@ -86,8 +86,6 @@ func _physics_process(delta: float) -> void:
 			stamina_bar.modulate = Color.WHITE
 
 	move_and_slide()
-	
-
 
 func _on_powerup_used(powerup: Inventory.Powerup) -> void:
 	if powerup == 1:

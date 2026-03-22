@@ -1,19 +1,14 @@
 [gd_scene format=3 uid="uid://hrny0awi1oes"]
 
-[ext_resource type="Texture2D" path="res://assets/Shadow.png" id="1_1a228"]
-[ext_resource type="Script" path="res://hotbar_slot.gd" id="1_leyo8"]
-
 [node name="HotbarSlot" type="Button" unique_id=908349912]
 offset_left = 1.0
 offset_top = 3.0
 offset_right = 51.0
 offset_bottom = 54.0
-script = ExtResource("1_leyo8")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1598867506]
 position = Vector2(24.750002, 25.999994)
 scale = Vector2(0.6171875, 0.625)
-texture = ExtResource("1_1a228")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1375891012]
 layout_mode = 0
