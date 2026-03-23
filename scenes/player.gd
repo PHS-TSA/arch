@@ -5,14 +5,14 @@ extends CharacterBody3D
 @onready var spring_arm_3d: SpringArm3D = $SpringArm3D
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+const SPEED := 5.0
+const JUMP_VELOCITY := 4.5
 
-const LERP_SPEED = 10.0 
+const LERP_SPEED := 10.0 
 
-var max_speed = 5
-var sprint_speed = 8
-var walk_speed = 5
+var max_speed := 5
+var sprint_speed := 8
+var walk_speed := 5
 
 var stamina: float = 50.0
 var max_stamina: float = 50.0
@@ -22,7 +22,8 @@ var stamina_regen: float = 10.0
 var is_exhausted: bool = false
 var recovery_threshold: float = 20.0
 
-var jump_mult = 1.0
+var jump_mult := 1.0
+var timer_count := 0
 signal jump_power
 
 func _physics_process(delta: float) -> void:
@@ -37,7 +38,7 @@ func _physics_process(delta: float) -> void:
 			jump_mult = 1.0
 			jump_power.emit()
 		
-	if Input.is_action_pressed("sprint"):
+	if Input.is_action_pressed("sprint") and max_speed != sprint_speed:
 		max_speed = sprint_speed
 	else:
 		max_speed = walk_speed
@@ -60,7 +61,7 @@ func _physics_process(delta: float) -> void:
 	
 	if not is_exhausted and Input.is_action_pressed("sprint") and direction != Vector3.ZERO:
 		max_speed = sprint_speed
-		stamina -= stamina_drain * delta
+		stamina -= (stamina_drain * delta)
 	else:
 		max_speed = walk_speed
 		stamina += stamina_regen * delta
@@ -91,8 +92,11 @@ func _on_powerup_used(powerup: Inventory.Powerup) -> void:
 	if powerup == 1:
 		walk_speed *= 2
 		sprint_speed *= 2
+		timer_count += 1
 		await get_tree().create_timer(2.5).timeout
-		walk_speed /= 2
-		sprint_speed /= 2
+		timer_count -= 1
+		if timer_count == 0:
+			walk_speed /= 2
+			sprint_speed /= 2
 	elif powerup == 3:
-		jump_mult = 1.5
+		jump_mult *= 1.5
