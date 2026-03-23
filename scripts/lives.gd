@@ -14,7 +14,7 @@ func take_damage():
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 		hearts = max_hearts 
-		
+
 func heal():
 	if hearts < 3:
 		hearts += 1
