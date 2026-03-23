@@ -2,15 +2,11 @@ extends Area3D
 
 signal powerup_collected(powerup: Inventory.Powerup)
 
-var powerup: Inventory.Powerup
+@onready var powerup: Inventory.Powerup = Inventory.Powerup.values().pick_random()
 var collected: bool = false
 
 var tween := create_tween()
 var tween2 := create_tween()
-
-func _ready() -> void:
-	powerup = Inventory.Powerup.values().pick_random()
-
 
 func reveal() -> void:
 	visible = true

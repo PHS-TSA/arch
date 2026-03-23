@@ -7,9 +7,9 @@
 [ext_resource type="Script" uid="uid://c5xybrppoqo20" path="res://scenes/lives_bar.gd" id="5_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://l04uj03ci585" path="res://scenes/hotbar.tscn" id="5_tefeu"]
 [ext_resource type="Texture2D" uid="uid://xtc75yx7f5mw" path="res://assets/heartIcon.png" id="6_o6xl0"]
-[ext_resource type="Script" path="res://scenes/heal_block.gd" id="8_85g3d"]
+[ext_resource type="Script" uid="uid://b62kq78fi0hjs" path="res://scenes/heal_block.gd" id="8_85g3d"]
 [ext_resource type="PackedScene" uid="uid://db6cnt5b6dee3" path="res://scenes/powerups_manager.tscn" id="8_choun"]
-[ext_resource type="Script" path="res://scenes/damage_block.gd" id="9_choun"]
+[ext_resource type="Script" uid="uid://dswtrogwrrxot" path="res://scenes/damage_block.gd" id="9_choun"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -171,6 +171,7 @@ mesh = SubResource("BoxMesh_tipki")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_tipki")
 
+[connection signal="jump_power" from="CharacterBody3D" to="CanvasLayer/Powerups_Manager2" method="_on_character_body_3d_jump_power"]
 [connection signal="powerup_collected" from="Chest" to="." method="_on_powerup_collected"]
 [connection signal="powerup_collected" from="Chest" to="CanvasLayer/Hotbar" method="_on_powerup_collected"]
 [connection signal="powerup_used" from="CanvasLayer/Hotbar" to="CharacterBody3D" method="_on_powerup_used"]
