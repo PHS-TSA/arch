@@ -4,6 +4,7 @@ var hearts_list : Array[TextureRect] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	await get_tree().process_frame
 	for child in $".".get_children():
 		if child is TextureRect:
 			hearts_list.append(child)
