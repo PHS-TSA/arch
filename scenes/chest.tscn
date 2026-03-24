@@ -17,6 +17,7 @@ shape = SubResource("BoxShape3D_tbgi4")
 script = ExtResource("3_yue2o")
 
 [node name="Powerup" parent="." unique_id=376149357 instance=ExtResource("4_yue2o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
 
 [node name="desertChest" parent="." unique_id=849689453 instance=ExtResource("4_yhylo")]
 transform = Transform3D(4.173708e-09, 0, -0.35, 0, 0.35, 0, 0.35, 0, 4.173708e-09, 0, 0, 0)

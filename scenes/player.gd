@@ -23,7 +23,6 @@ var is_exhausted: bool = false
 var recovery_threshold: float = 20.0
 
 var jump_mult := 1.0
-var timer_count := 0
 signal jump_power
 
 func _physics_process(delta: float) -> void:
@@ -92,11 +91,8 @@ func _on_powerup_used(powerup: Inventory.Powerup) -> void:
 	if powerup == 1:
 		walk_speed *= 2
 		sprint_speed *= 2
-		timer_count += 1
 		await get_tree().create_timer(2.5).timeout
-		timer_count -= 1
-		if timer_count == 0:
-			walk_speed /= 2
-			sprint_speed /= 2
+		walk_speed /= 2
+		sprint_speed /= 2
 	elif powerup == 3:
 		jump_mult *= 1.5
