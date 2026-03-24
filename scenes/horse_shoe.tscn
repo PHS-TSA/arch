@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://di21k1vwae70"]
+
+[ext_resource type="PackedScene" uid="uid://dwxpsfwgo0xqw" path="res://assets/horseShoe.blend" id="1_k7eht"]
+
+[node name="horseShoe" unique_id=107063555 instance=ExtResource("1_k7eht")]
+
+[node name="Circle" parent="." index="0" unique_id=672931301]
+transform = Transform3D(0.853406, 0, 0, 0, 0.9961947, -0.08715574, 0, 0.08715574, 0.9961947, 0, 0, -0.26)
