@@ -1,8 +1,11 @@
 extends HBoxContainer
 
 signal powerup_used(powerup: Inventory.Powerup)
+signal no_pickup
+signal pickup
 var contains: Array[bool] = []
 var selected: int
+var no_pick := false
 @onready var ogstyle: StyleBox = get_child(0).find_child("Panel").get_theme_stylebox("panel").duplicate()
 @onready var newstyle: StyleBox = ogstyle.duplicate()
 
@@ -10,6 +13,8 @@ func _ready() -> void:
 	newstyle.bg_color = Color(0.725, 0.701, 0.0, 0.6)
 	for i in range(get_child_count()):
 		contains.append(false)
+	for child in get_children():
+		child.no_pickup.connect(_on_last_slot_no_pickup)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed() and not event.is_echo():
@@ -29,11 +34,18 @@ func _input(event: InputEvent) -> void:
 		elif event.keycode == KEY_E:
 			if contains[get_child(selected).get_index()]:
 				powerup_used.emit(get_child(selected).empty())
+				no_pick = false
+				pickup.emit()
 
 func _on_powerup_collected(powerup: Inventory.Powerup) -> void:
 	var next_index
 	for i in range(len(contains) - 1, -1, -1):
 		if not contains[i]:
 			next_index = i
-	
+	if next_index == null or next_index >= get_child_count():
+		return
 	get_child(next_index).fill(powerup)
+
+func _on_last_slot_no_pickup() -> void:
+	no_pick = true
+	no_pickup.emit()

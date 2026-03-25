@@ -4,6 +4,7 @@ signal powerup_collected(powerup: Inventory.Powerup)
 
 @onready var powerup: Inventory.Powerup = Inventory.Powerup.values().pick_random()
 var collected: bool = false
+var pickup: bool = true
 
 var tween := create_tween()
 var tween2 := create_tween()
@@ -17,9 +18,7 @@ func _process(delta: float) -> void:
 	$horseShoe.rotation.y += deg_to_rad(1)
 
 func _on_body_entered(body: Node3D) -> void:
-	if collected:
-		return
-	if not body is Player:
+	if collected or (not pickup) or (not body is Player):
 		return
 	collected = true
 	set_deferred("monitoring", false)
