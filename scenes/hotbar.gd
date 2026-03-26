@@ -13,6 +13,8 @@ func _ready() -> void:
 	newstyle.bg_color = Color(0.725, 0.701, 0.0, 0.6)
 	for i in range(get_child_count()):
 		contains.append(false)
+	for child in get_children():
+		child.no_pickup.connect(_on_last_slot_no_pickup)
 
 
 func _input(event: InputEvent) -> void:
@@ -37,6 +39,8 @@ func _input(event: InputEvent) -> void:
 		elif event.keycode == KEY_E:
 			if contains[get_child(selected).get_index()]:
 				powerup_used.emit(get_child(selected).empty())
+				no_pick = false
+				pickup.emit()
 
 
 func _on_powerup_collected(powerup: Inventory.Powerup) -> void:

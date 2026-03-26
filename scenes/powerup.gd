@@ -21,9 +21,7 @@ func reveal() -> void:
 
 
 func _on_body_entered(body: Node3D) -> void:
-	if collected:
-		return
-	if not body is Player:
+	if collected or (not pickup) or (not body is Player):
 		return
 	collected = true
 	set_deferred("monitoring", false)
