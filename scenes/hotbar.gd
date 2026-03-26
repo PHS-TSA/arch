@@ -1,20 +1,25 @@
 extends HBoxContainer
 
 signal powerup_used(powerup: Inventory.Powerup)
+
 var contains: Array[bool] = []
 var selected: int
-@onready var ogstyle: StyleBox = get_child(0).find_child("Panel").get_theme_stylebox("panel").duplicate()
-@onready var newstyle: StyleBox = ogstyle.duplicate()
+
+@onready var ogstyle: StyleBoxFlat = get_child(0).find_child("Panel").get_theme_stylebox("panel").duplicate()
+@onready var newstyle: StyleBoxFlat = ogstyle.duplicate()
+
 
 func _ready() -> void:
 	newstyle.bg_color = Color(0.725, 0.701, 0.0, 0.6)
 	for i in range(get_child_count()):
 		contains.append(false)
 
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed() and not event.is_echo():
+		var e := event as InputEventKey
 		var number_pressed := -1
-		if event.keycode >= KEY_0 and event.keycode <= KEY_9:
+		if e.keycode >= KEY_0 and e.keycode <= KEY_9:
 			number_pressed = event.keycode - KEY_0
 			number_pressed = number_pressed - 1
 			if number_pressed == -1:
@@ -24,16 +29,22 @@ func _input(event: InputEvent) -> void:
 			if number_pressed != -2:
 				for child in get_children():
 					child.find_child("Panel").add_theme_stylebox_override("panel", ogstyle)
-				get_child(number_pressed).find_child("Panel").add_theme_stylebox_override("panel", newstyle)
+				get_child(number_pressed).find_child("Panel").add_theme_stylebox_override(
+					"panel",
+					newstyle,
+				)
 				selected = number_pressed
 		elif event.keycode == KEY_E:
 			if contains[get_child(selected).get_index()]:
 				powerup_used.emit(get_child(selected).empty())
 
+
 func _on_powerup_collected(powerup: Inventory.Powerup) -> void:
-	var next_index
+	var next_index := -1
 	for i in range(len(contains) - 1, -1, -1):
 		if not contains[i]:
 			next_index = i
-	
-	get_child(next_index).fill(powerup)
+			break
+
+	if next_index != -1:
+		get_child(next_index).fill(powerup)

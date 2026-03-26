@@ -11,5 +11,6 @@ enum Powerup {
 
 var inventory: Array[Powerup] = []
 
+
 func _on_powerup_collected(powerup: Powerup) -> void:
 	inventory.append(powerup)

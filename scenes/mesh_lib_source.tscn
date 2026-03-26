@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c4oco0tbnxfur"]
 
-[ext_resource type="Texture2D" uid="uid://b5aab10h3bk6l" path="res://not_ugly.png" id="1_me65r"]
+[ext_resource type="Texture2D" uid="uid://ifomx3yfyvk8" path="res://icon.svg" id="1_me65r"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_0n8u8"]
 
