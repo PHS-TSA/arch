@@ -4,8 +4,6 @@ signal powerup_collected(powerup: Inventory.Powerup)
 
 var collected: bool = false
 var pickup: bool = true
-var tween := create_tween()
-var tween2 := create_tween()
 
 @onready var powerup: Inventory.Powerup = Inventory.Powerup.values().pick_random()
 @onready var horseshoe: Node3D = $horseShoe
@@ -28,6 +26,7 @@ func _on_body_entered(body: Node3D) -> void:
 	set_deferred("monitoring", false)
 	powerup_collected.emit(powerup)
 
-	tween2.set_trans(Tween.TRANS_EXPO)
-	tween2.set_ease(Tween.EASE_IN)
-	tween2.tween_property($horseShoe/Circle, "scale", Vector3(1.25, 1.25, 1.25), 0.3)
+	var pickup_tween := create_tween()
+	pickup_tween.set_trans(Tween.TRANS_EXPO)
+	pickup_tween.set_ease(Tween.EASE_IN)
+	pickup_tween.tween_property($horseShoe/Circle, "scale", Vector3(1.25, 1.25, 1.25), 0.3)
