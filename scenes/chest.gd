@@ -4,6 +4,8 @@ extends Area3D
 signal powerup_collected(powerup: Inventory.Powerup)
 signal chest_opened
 
+const MIN_TWEEN_SCALE := Vector3(0.001, 0.001, 0.001)
+
 var cloned := false
 
 
@@ -45,7 +47,7 @@ func _on_powerup_collected(powerup: Inventory.Powerup) -> void:
 	tween.tween_property(
 		self,
 		"scale",
-		Vector3(0, 0, 0),
+		MIN_TWEEN_SCALE,
 		1.0,
 	)
 	tween2.set_trans(Tween.TRANS_BACK)
