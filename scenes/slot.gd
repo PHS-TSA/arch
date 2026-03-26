@@ -8,8 +8,10 @@ func fill(powerup: Inventory.Powerup) -> void:
 	$Panel/Powerup_Image.frame = powerup
 	held = powerup
 	get_parent().contains[get_index()] = true
-	if get_index() == 4:
-		no_pickup.emit()
+	for i in get_parent().contains:
+		if not i:
+			return
+	no_pickup.emit()
 
 func empty() -> Inventory.Powerup:
 	$Panel/Powerup_Image.visible = false
