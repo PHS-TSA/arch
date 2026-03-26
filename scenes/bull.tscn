@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://c7jhd2600s4t6"]
+
+[ext_resource type="Script" uid="uid://7pn2tm346eal" path="res://scenes/bull.gd" id="1_trfny"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_euvdr"]
+radius = 0.35
+height = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_euvdr"]
+top_radius = 0.35
+bottom_radius = 0.45
+height = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y2nmm"]
+radius = 0.55
+height = 1.2
+
+[node name="Bull" type="CharacterBody3D" unique_id=1201069862]
+script = ExtResource("1_trfny")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=158080805]
+transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_euvdr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=763390464]
+mesh = SubResource("CylinderMesh_euvdr")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=372703009]
+
+[node name="DamageArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea"]
+transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_y2nmm")
+
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]

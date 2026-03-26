@@ -1,12 +1,14 @@
 extends VBoxContainer
 
-var children := []
+var children: Array[Control] = []
+
 
 func _ready() -> void:
 	for i in range(self.get_child_count() - 1, -1, -1):
 		children.append(self.get_child(i))
 	for child in self.get_children():
 		child.modulate.a = 0
+
 
 func _on_powerup_used(powerup: Inventory.Powerup) -> void:
 	for child in children:

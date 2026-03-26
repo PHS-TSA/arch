@@ -1,7 +1,9 @@
 extends Control
 
 signal no_pickup
+
 var held: Inventory.Powerup
+
 
 func fill(powerup: Inventory.Powerup) -> void:
 	$Panel/Powerup_Image.visible = true
@@ -12,6 +14,7 @@ func fill(powerup: Inventory.Powerup) -> void:
 		if not i:
 			return
 	no_pickup.emit()
+
 
 func empty() -> Inventory.Powerup:
 	$Panel/Powerup_Image.visible = false

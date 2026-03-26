@@ -1,7 +1,8 @@
 extends Node3D
 
 signal chest_opened(body: Node3D)
-signal powerup_collected
+signal powerup_collected()
+
 
 func _on_body_entered(body: Node3D) -> void:
 	if body is Player:

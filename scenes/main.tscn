@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://0ol4qu7b2ja8"]
 
-[ext_resource type="PackedScene" uid="uid://bxxenrj7af57f" path="res://scenes/map.tscn" id="1_0wfyh"]
+[ext_resource type="PackedScene" path="res://scenes/map.tscn" id="1_0wfyh"]
 [ext_resource type="Script" uid="uid://dyqrxc5w7krra" path="res://scripts/inventory.gd" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://c2xhoyi0dd6ly" path="res://scenes/player.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://jmjlq1p7rbbb" path="res://scenes/chest.tscn" id="4_jyhfs"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://b62kq78fi0hjs" path="res://scenes/heal_block.gd" id="8_85g3d"]
 [ext_resource type="PackedScene" uid="uid://db6cnt5b6dee3" path="res://scenes/powerups_manager.tscn" id="8_choun"]
 [ext_resource type="Script" uid="uid://dswtrogwrrxot" path="res://scenes/damage_block.gd" id="9_choun"]
+[ext_resource type="PackedScene" uid="uid://c7jhd2600s4t6" path="res://scenes/bull.tscn" id="10_puvyi"]
+[ext_resource type="Script" uid="uid://ba2powgkdusm2" path="res://scenes/bull_navigation_region.gd" id="11_lg38m"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -23,6 +25,8 @@ background_mode = 2
 sky = SubResource("Sky_sugp2")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_8s68r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyhfs"]
 bg_color = Color(0.4491729, 0.6880101, 0.5811239, 1)
@@ -49,14 +53,53 @@ environment = SubResource("Environment_jyhfs")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, -0.26730013, 1.1536298, 0.12859929)
 shadow_enabled = true
 
-[node name="Map" parent="." unique_id=267566732 instance=ExtResource("1_0wfyh")]
+[node name="BullNavigationRegion" type="NavigationRegion3D" parent="." unique_id=1711361287]
+navigation_mesh = SubResource("NavigationMesh_8s68r")
+script = ExtResource("11_lg38m")
+
+[node name="Map" parent="BullNavigationRegion" unique_id=267566732 instance=ExtResource("1_0wfyh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
 
 [node name="CharacterBody3D" parent="." unique_id=603631026 instance=ExtResource("2_0wfyh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0.5, 8)
 
 [node name="Chest" parent="." unique_id=1127407156 instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -0.25, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, -0.25, -4)
+
+[node name="RedBull" parent="." unique_id=1858473882 instance=ExtResource("10_puvyi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, -8)
+move_speed = 1.7
+
+[node name="PinkBull" parent="." unique_id=1953137977 instance=ExtResource("10_puvyi")]
+transform = Transform3D(0.043166053, 0, -0.9990679, 0, 1, 0, 0.9990679, 0, 0.043166053, 10, 0.25, -5)
+bull_type = 1
+bull_color = Color(1, 0.43137255, 0.7176471, 1)
+move_speed = 1.7
+prediction_distance = 3.5
+
+[node name="CyanBull" parent="." unique_id=1817612145 instance=ExtResource("10_puvyi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.25, -4)
+bull_type = 2
+bull_color = Color(0.19607843, 0.85882354, 1, 1)
+move_speed = 1.7
+prediction_distance = 4.0
+
+[node name="OrangeBull" parent="." unique_id=2100780902 instance=ExtResource("10_puvyi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.25, 8)
+bull_type = 3
+bull_color = Color(1, 0.59607846, 0.15686275, 1)
+move_speed = 1.5
+retarget_interval = 0.8
+flee_distance = 6.0
+
+[node name="GreenBull" parent="." unique_id=1115712269 instance=ExtResource("10_puvyi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.25, 0)
+bull_type = 4
+bull_color = Color(0.3529412, 0.85882354, 0.3529412, 1)
+teleport_interval = 1.8
+teleport_radius_min = 1.5
+teleport_radius_max = 2.8
+min_safe_teleport_distance = 1.3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1742829395]
 
@@ -144,7 +187,7 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="Heal block" type="Area3D" parent="." unique_id=1528385533]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.4245253)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.355354, 0, 7.7879252)
 script = ExtResource("8_85g3d")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Heal block" unique_id=592340564]
@@ -158,15 +201,13 @@ skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_o6xl0")
 
 [node name="Damage block" type="Area3D" parent="." unique_id=1867935317]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04205823, 0, 3.8186598)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.43118715, 0, 0.23110294)
 script = ExtResource("9_choun")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Damage block" unique_id=928923171]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0169468, 0.04960352, 0.55663824)
 shape = SubResource("BoxShape3D_o6xl0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Damage block" unique_id=895905764]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0169468, 0, 0.41960979)
 mesh = SubResource("BoxMesh_tipki")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_tipki")
@@ -174,8 +215,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_tipki")
 [connection signal="jump_power" from="CharacterBody3D" to="CanvasLayer/Powerups_Manager2" method="_on_character_body_3d_jump_power"]
 [connection signal="powerup_collected" from="Chest" to="." method="_on_powerup_collected"]
 [connection signal="powerup_collected" from="Chest" to="CanvasLayer/Hotbar" method="_on_powerup_collected"]
-[connection signal="no_pickup" from="CanvasLayer/Hotbar" to="Chest" method="_on_hotbar_no_pickup"]
-[connection signal="pickup" from="CanvasLayer/Hotbar" to="Chest" method="_on_hotbar_pickup"]
+[connection signal="no_pickup" from="CanvasLayer/Hotbar" to="Chest" method="on_hotbar_no_pickup"]
+[connection signal="pickup" from="CanvasLayer/Hotbar" to="Chest" method="on_hotbar_pickup"]
 [connection signal="powerup_used" from="CanvasLayer/Hotbar" to="CharacterBody3D" method="_on_powerup_used"]
 [connection signal="powerup_used" from="CanvasLayer/Hotbar" to="CanvasLayer/Powerups_Manager2" method="_on_powerup_used"]
 [connection signal="body_entered" from="Heal block" to="Heal block" method="_on_body_entered"]

@@ -1,5 +1,6 @@
 extends Control
 
+
 func fill(powerup: Inventory.Powerup) -> void:
 	self.modulate.a = 1.0
 	$Powerup_Indication.frame = powerup
