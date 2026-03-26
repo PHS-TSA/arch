@@ -3,6 +3,7 @@ extends Area3D
 signal powerup_collected(powerup: Inventory.Powerup)
 
 var collected: bool = false
+var pickup: bool = true
 var tween := create_tween()
 var tween2 := create_tween()
 

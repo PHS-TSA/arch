@@ -2,9 +2,12 @@ class_name Hotbar
 extends HBoxContainer
 
 signal powerup_used(powerup: Inventory.Powerup)
+signal no_pickup
+signal pickup
 
 var contains: Array[bool] = []
 var selected: int
+var no_pick := false
 
 @onready var ogstyle: StyleBoxFlat = get_child(0).find_child("Panel").get_theme_stylebox("panel").duplicate()
 @onready var newstyle: StyleBoxFlat = ogstyle.duplicate()
@@ -45,11 +48,16 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_powerup_collected(powerup: Inventory.Powerup) -> void:
-	var next_index := -1
+	var next_index: int
 	for i in range(len(contains) - 1, -1, -1):
 		if not contains[i]:
 			next_index = i
-			break
 
-	if next_index != -1:
-		get_child(next_index).fill(powerup)
+	if next_index == null or next_index >= get_child_count():
+		return
+	get_child(next_index).fill(powerup)
+
+
+func _on_last_slot_no_pickup() -> void:
+	no_pick = true
+	no_pickup.emit()
