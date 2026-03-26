@@ -14,7 +14,7 @@ enum BullType {
 @export_range(0.1, 5.0, 0.1) var retarget_interval: float = 0.4
 @export_range(0.5, 8.0, 0.1) var prediction_distance: float = 3.0
 @export_range(1.0, 10.0, 0.1) var flee_distance: float = 5.0
-@export_range(0.2, 5.0, 0.1) var teleport_interval: float = 1.4
+@export_range(0.2, 5.0, 0.1) var teleport_interval: float = 10.
 @export_range(0.5, 6.0, 0.1) var teleport_radius_min: float = 1.4
 @export_range(1.0, 8.0, 0.1) var teleport_radius_max: float = 3.0
 @export_range(0.5, 4.0, 0.1) var min_safe_teleport_distance: float = 1.2
@@ -33,8 +33,8 @@ func _ready() -> void:
 	navigation_agent.set_navigation_map(get_world_3d().navigation_map)
 	navigation_agent.path_desired_distance = 0.5
 	navigation_agent.target_desired_distance = 0.5
-	retarget_cooldown = randf_range(0.0, retarget_interval)
-	teleport_cooldown = randf_range(0.0, teleport_interval)
+	retarget_cooldown = randf_range(1., retarget_interval)
+	teleport_cooldown = randf_range(1., teleport_interval)
 	actor_setup.call_deferred()
 
 

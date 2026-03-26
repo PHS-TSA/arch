@@ -13,7 +13,10 @@ func take_damage() -> void:
 		hearts_changed.emit(hearts)
 	if hearts == 0:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		get_tree().change_scene_to_file("res://scenes/game_over.tscn")
+		get_tree().call_deferred(
+			"change_scene_to_file",
+			"res://scenes/game_over.tscn",
+		)
 		hearts = MAX_HEARTS
 
 

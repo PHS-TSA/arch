@@ -1,3 +1,4 @@
+class_name Hotbar
 extends HBoxContainer
 
 signal powerup_used(powerup: Inventory.Powerup)

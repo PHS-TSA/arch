@@ -1,7 +1,7 @@
 extends Node3D
 
 signal chest_opened(body: Node3D)
-signal powerup_collected(powerup: Inventory.Powerup)
+signal powerup_collected()
 
 
 func _on_body_entered(body: Node3D) -> void:
@@ -10,6 +10,6 @@ func _on_body_entered(body: Node3D) -> void:
 
 
 func _on_powerup_collected(powerup: Inventory.Powerup) -> void:
-	powerup_collected.emit(powerup)
+	powerup_collected.emit()
 	set_deferred("monitoring", false)
 	set_deferred("monitorable", false)
