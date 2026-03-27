@@ -23,6 +23,9 @@ var player: Player
 var retarget_cooldown: float = 0.0
 var teleport_cooldown: float = 0.0
 var current_target_position: Vector3 = Vector3.ZERO
+var freeze_timers: int = 0
+var slow_timers: int = 0
+var freeze_range: float = 2.5
 
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var mesh_instance_3d: MeshInstance3D = $CollisionShape3D/MeshInstance3D
@@ -33,8 +36,8 @@ func _ready() -> void:
 	navigation_agent.set_navigation_map(get_world_3d().navigation_map)
 	navigation_agent.path_desired_distance = 0.5
 	navigation_agent.target_desired_distance = 0.5
-	retarget_cooldown = randf_range(1., retarget_interval)
-	teleport_cooldown = randf_range(1., teleport_interval)
+	retarget_cooldown = randf_range(1. / Inventory.level, retarget_interval)
+	teleport_cooldown = randf_range(6. - Inventory.level, teleport_interval)
 	actor_setup.call_deferred()
 
 
@@ -125,7 +128,9 @@ func _get_pink_target() -> Vector3:
 	if player_velocity.length() < 0.1:
 		return _get_player_ground_position()
 
-	return _snap_to_navigation(player.global_position + player_velocity.normalized() * prediction_distance)
+	return _snap_to_navigation(
+		player.global_position + player_velocity.normalized() * prediction_distance,
+	)
 
 
 func _get_cyan_target() -> Vector3:
@@ -267,3 +272,38 @@ func _apply_color() -> void:
 func _on_damage_area_body_entered(body: Node3D) -> void:
 	if body is Player:
 		Lives.take_damage()
+
+
+func _on_timer_2_timeout() -> void:
+	_update_move_speed()
+
+
+func _on_hotbar_powerup_used(powerup: Inventory.Powerup) -> void:
+	if powerup == Inventory.Powerup.FREEZE:
+		_ensure_player()
+		if player == null:
+			return
+		if global_position.distance_to(player.global_position) > freeze_range:
+			return
+		freeze_timers += 1
+		_update_move_speed()
+		await get_tree().create_timer(2.5).timeout
+		freeze_timers = maxi(0, freeze_timers - 1)
+		_update_move_speed()
+	if powerup == Inventory.Powerup.SLOW:
+		slow_timers += 1
+		_update_move_speed()
+		await get_tree().create_timer(2.5).timeout
+		slow_timers = maxi(0, slow_timers - 1)
+		_update_move_speed()
+
+
+func _base_move_speed() -> float:
+	return (1 + Inventory.level / 5) * 2.5
+
+
+func _update_move_speed() -> void:
+	if freeze_timers > 0:
+		move_speed = 0.0
+		return
+	move_speed = _base_move_speed() * pow(0.5, slow_timers)

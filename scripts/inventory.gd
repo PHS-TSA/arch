@@ -9,8 +9,4 @@ enum Powerup {
 	SHOOT,
 }
 
-var inventory: Array[Powerup] = []
-
-
-func _on_powerup_collected(powerup: Powerup) -> void:
-	inventory.append(powerup)
+static var level := 1

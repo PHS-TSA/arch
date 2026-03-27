@@ -7,19 +7,33 @@ signal chest_opened
 const MIN_TWEEN_SCALE := Vector3(0.001, 0.001, 0.001)
 
 var cloned := false
+@onready var hotbar: Hotbar = get_parent().find_child("CanvasLayer").find_child("Hotbar")
 
+var time: int = 0
+var random: float
+
+var positions: Array[Vector3] = [
+					Vector3(3.0, -0.25, -5.5), Vector3(-4.25,-0.25,-3.25),
+					Vector3(-4.25, -0.25, 2.), Vector3(3.25, -0.25, 2.75),
+					Vector3(3.25, -0.25, 6.3), Vector3(-6.35, -0.25, 8.0),
+					Vector3(3.6, -0.25, 9.5), Vector3(-9.9, -0.25, -5.70),
+					Vector3(8.5, -0.25, -10.)
+				]
+static var occupied: Array[bool] = []
 
 func _ready() -> void:
-	await get_tree().process_frame
-	var hotbar: Hotbar = get_parent().find_child("CanvasLayer").find_child("Hotbar")
-	if not cloned:
-		for i in range(9):
-			var copy: Chest = self.duplicate()
-			copy.position = Vector3(randf_range(-3, 16), self.position.y, randf_range(-2.5, 7.05))
-			copy.cloned = true
-			get_parent().add_child(copy)
-			hotbar.no_pickup.connect(copy.on_hotbar_no_pickup)
-			hotbar.pickup.connect(copy.on_hotbar_pickup)
+	if not self.cloned:
+		await get_tree().process_frame
+		random = randf_range(180, 1800)
+		for i in positions:
+			occupied.append(false)
+
+
+func _process(delta: float) -> void:
+	if not self.cloned:
+		time += 1
+		if time > random:
+				create_clone()
 
 
 func on_hotbar_no_pickup() -> void:
@@ -60,3 +74,18 @@ func _on_powerup_collected(powerup: Inventory.Powerup) -> void:
 	)
 	await get_tree().create_timer(1.0).timeout
 	self.queue_free()
+
+func create_clone() -> void:
+	if occupied.find(false) == -1:
+		return
+	var copy: Chest = self.duplicate()
+	var pos = positions.pick_random()
+	while occupied[positions.find(pos)]:
+		pos = positions.pick_random()
+	copy.position = pos
+	copy.occupied = self.occupied
+	occupied[positions.find(pos)] = true
+	copy.cloned = true
+	get_parent().add_child(copy)
+	hotbar.no_pickup.connect(copy.on_hotbar_no_pickup)
+	hotbar.pickup.connect(copy.on_hotbar_pickup)

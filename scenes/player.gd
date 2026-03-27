@@ -23,6 +23,7 @@ var jump_mult := 1.0
 @onready var spring_arm_3d: SpringArm3D = $SpringArm3D
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 
+static var player := self
 
 func _ready() -> void:
 	add_to_group("player")

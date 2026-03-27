@@ -1,9 +1,8 @@
 extends Label
 
-const ROUND_DURATION_SECONDS := 30
+const ROUND_DURATION_SECONDS := 60
 
 var seconds_left := ROUND_DURATION_SECONDS
-
 
 func _ready() -> void:
 	update_text()
@@ -26,8 +25,12 @@ func _on_timer_2_timeout() -> void:
 	if seconds_left <= 0:
 		seconds_left = 0
 		update_text()
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		get_tree().change_scene_to_file("res://scenes/win_screen.tscn")
-		return
-
+		if Inventory.level < 5:
+			Inventory.level += 1
+			seconds_left = 60
+			update_text()
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			get_tree().change_scene_to_file("res://scenes/win_screen.tscn")
+			return
 	update_text()
