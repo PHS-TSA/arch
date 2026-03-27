@@ -53,7 +53,7 @@ jobs:
           use-dotnet: false
           include-templates: true
       - name: Install Blender
-        run: sudo apt install blender
+        run: sudo apt install blender python3-numpy
       - name: Configure Blender path for Godot
         shell: bash
         run: |
