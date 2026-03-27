@@ -53,6 +53,10 @@ jobs:
           use-dotnet: false
           include-templates: true
       - name: Install Blender
+        uses: moguri/setup-blender@v1
+        with:
+          blender-version: "5.1.0"
+      - name: Install NumPy for Blender
         run: sudo apt install blender python3-numpy
       - name: Configure Blender path for Godot
         shell: bash
