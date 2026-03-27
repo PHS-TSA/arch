@@ -1,9 +1,10 @@
-[gd_scene format=3 uid="uid://bvv3q6m42dcqa"]
+[gd_scene format=3 uid="uid://df7bmyymp1dwu"]
 
 [ext_resource type="Script" uid="uid://de8uj3mc6vmjr" path="res://scenes/menu.gd" id="1_con2f"]
 [ext_resource type="Texture2D" uid="uid://btso7pevrc1fu" path="res://assets/menuBackground.png" id="2_mhnvy"]
 [ext_resource type="Texture2D" uid="uid://fp8o6a0210dp" path="res://assets/StartLogo.png" id="3_con2f"]
 [ext_resource type="Texture2D" uid="uid://d1jui1qfgrgeh" path="res://assets/Exit.png" id="4_mhnvy"]
+[ext_resource type="Texture2D" uid="uid://c1qk3jygrkr5w" path="res://assets/instructionsButton.png" id="5_4ytvr"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4ytvr"]
 texture = ExtResource("2_mhnvy")
@@ -81,13 +82,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -142.0
-offset_top = -29.0
-offset_right = 140.0
-offset_bottom = 28.0
+offset_left = -238.99997
+offset_top = -58.0
+offset_right = 1539.0
+offset_bottom = 245.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Instructions"
+scale = Vector2(0.16844748, 0.16844748)
+pivot_offset = Vector2(110, 39)
+icon = ExtResource("5_4ytvr")
 
 [connection signal="pressed" from="Button" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_exit_pressed"]

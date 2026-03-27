@@ -1,7 +1,9 @@
-[gd_scene format=3 uid="uid://debi6rx7o7o5r"]
+[gd_scene format=3 uid="uid://ciun16f7sdj0"]
 
 [ext_resource type="Texture2D" uid="uid://3lgdgj4fnmap" path="res://assets/plain_bg.png" id="1_7ls63"]
-[ext_resource type="Script" uid="uid://1eruifxei7eh" path="res://instructions.gd" id="1_h8hbf"]
+[ext_resource type="Script" path="res://instructions.gd" id="1_h8hbf"]
+[ext_resource type="Texture2D" uid="uid://betgcaomrp03w" path="res://controlsButton.png" id="3_jh4dl"]
+[ext_resource type="Texture2D" uid="uid://bcelrtjsasfvt" path="res://returnButton.png" id="4_gosh8"]
 
 [node name="instructions" type="Control" unique_id=1188088837]
 layout_mode = 3
@@ -73,21 +75,27 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -218.0
-offset_top = -88.0
+offset_left = -410.0
+offset_top = -64.0
+offset_right = 1370.0
+offset_bottom = 239.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "Control Functions"
+scale = Vector2(0.21819407, 0.21957147)
+icon = ExtResource("3_jh4dl")
 
 [node name="Button2" type="Button" parent="." unique_id=157084413]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -79.0
-offset_right = 218.0
+offset_left = 4.0
+offset_top = -57.0
+offset_right = 1784.0
+offset_bottom = 246.0
 grow_vertical = 0
-text = "Return"
+scale = Vector2(0.21359688, 0.21359688)
+icon = ExtResource("4_gosh8")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
