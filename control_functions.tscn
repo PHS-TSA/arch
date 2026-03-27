@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://cbkwf026kdawn"]
+
+[ext_resource type="Texture2D" uid="uid://3lgdgj4fnmap" path="res://assets/plain_bg.png" id="1_bhctg"]
+[ext_resource type="Script" uid="uid://cghgbbn4g3l7y" path="res://control_functions.gd" id="1_rycb2"]
+
+[node name="ControlFunctions" type="Control" unique_id=1909633195]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rycb2")
+
+[node name="PlainBg" type="Sprite2D" parent="." unique_id=1901943666]
+position = Vector2(582, 322)
+scale = Vector2(0.6125, 0.6203704)
+texture = ExtResource("1_bhctg")
+
+[node name="Label" type="Label" parent="." unique_id=1918537129]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -467.0
+offset_top = -273.0
+offset_right = -154.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Movement:
+[W] = Forward
+[A] = Right
+[S] = Backwards
+[D] = Left"
+
+[node name="Label2" type="Label" parent="." unique_id=1207179196]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.0
+offset_top = -268.0
+offset_right = 414.0
+offset_bottom = -116.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Toggle Mouse Camera = [tab] & [esc]"
+
+[node name="Label3" type="Label" parent="." unique_id=637923165]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -141.0
+offset_right = 225.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Use powerup = [E]"
+
+[node name="Button" type="Button" parent="." unique_id=784153193]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -73.0
+offset_right = 163.0
+grow_vertical = 0
+text = "Return"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

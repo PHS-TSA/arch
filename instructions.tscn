@@ -1,0 +1,127 @@
+[gd_scene format=3 uid="uid://debi6rx7o7o5r"]
+
+[ext_resource type="Texture2D" uid="uid://3lgdgj4fnmap" path="res://assets/plain_bg.png" id="1_7ls63"]
+[ext_resource type="Script" uid="uid://1eruifxei7eh" path="res://instructions.gd" id="1_h8hbf"]
+
+[node name="instructions" type="Control" unique_id=1188088837]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h8hbf")
+
+[node name="PlainBg" type="Sprite2D" parent="." unique_id=1706995682]
+position = Vector2(571.5, 331.5)
+scale = Vector2(0.6026042, 0.61203694)
+texture = ExtResource("1_7ls63")
+
+[node name="Label2" type="Label" parent="." unique_id=1047919561]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -417.0
+offset_top = -60.0
+offset_right = -67.0
+offset_bottom = 92.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Toggle Mouse Camera = [tab] & [esc]"
+
+[node name="Label3" type="Label" parent="." unique_id=1419944710]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -393.0
+offset_top = -2.0
+offset_right = -64.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Use powerup = [E]"
+
+[node name="Label4" type="Label" parent="." unique_id=1543079494]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -578.0
+offset_top = -324.0
+offset_right = 1986.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "How to Play:
+Race around the Wild West to survive until the time is up. 
+Surviving with 1 life or more starts the next level.
+
+But watch out! 
+Stampeding bulls are scattered all around the map. 
+When they run into you will lose a heart out of three!
+"
+
+[node name="Label5" type="Label" parent="." unique_id=1804900638]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 91.0
+offset_top = -306.0
+offset_right = 2655.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Chests are found all around the map.
+Within them you'll find power ups. 
+They include:
+- freezing the bulls
+- slowing down the bulls
+- speeding you up
+- umping over parts of the map
+- lassoing at the bulls
+A money bag allows you to capture bulls."
+
+[node name="Button" type="Button" parent="." unique_id=2119119474]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -218.0
+offset_top = -88.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Control Functions"
+
+[node name="Button2" type="Button" parent="." unique_id=157084413]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -79.0
+offset_right = 218.0
+grow_vertical = 0
+text = "Return"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
