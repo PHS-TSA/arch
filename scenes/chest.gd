@@ -33,7 +33,8 @@ func _process(delta: float) -> void:
 	if not self.cloned:
 		time += 1
 		if time > random:
-				create_clone()
+			create_clone()
+			time = 0
 
 
 func on_hotbar_no_pickup() -> void:
