@@ -17,40 +17,6 @@ position = Vector2(571.5, 331.5)
 scale = Vector2(0.6026042, 0.61203694)
 texture = ExtResource("1_7ls63")
 
-[node name="Label2" type="Label" parent="." unique_id=1047919561]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -417.0
-offset_top = -60.0
-offset_right = -67.0
-offset_bottom = 92.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
-text = "Toggle Mouse Camera = [tab] & [esc]"
-
-[node name="Label3" type="Label" parent="." unique_id=1419944710]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -393.0
-offset_top = -2.0
-offset_right = -64.0
-offset_bottom = 150.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
-text = "Use powerup = [E]"
-
 [node name="Label4" type="Label" parent="." unique_id=1543079494]
 layout_mode = 1
 anchors_preset = 8
@@ -58,10 +24,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -578.0
-offset_top = -324.0
-offset_right = 1986.0
-offset_bottom = -48.0
+offset_left = -569.0
+offset_top = -258.0
+offset_right = 1995.0
+offset_bottom = 18.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -82,10 +48,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 91.0
-offset_top = -306.0
-offset_right = 2655.0
-offset_bottom = -30.0
+offset_left = 75.0
+offset_top = -259.0
+offset_right = 2639.0
+offset_bottom = 17.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
