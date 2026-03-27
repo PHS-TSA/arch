@@ -3,16 +3,19 @@
 [ext_resource type="Script" uid="uid://dyqrxc5w7krra" path="res://scripts/inventory.gd" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://c2xhoyi0dd6ly" path="res://scenes/player.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://blf5e7lc34t8h" path="res://map.tscn" id="3_trceg"]
+[ext_resource type="Script" uid="uid://c3kfbh72phe74" path="res://map.gd" id="4_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://jmjlq1p7rbbb" path="res://scenes/chest.tscn" id="4_jyhfs"]
 [ext_resource type="Script" uid="uid://c5xybrppoqo20" path="res://scenes/lives_bar.gd" id="5_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://l04uj03ci585" path="res://scenes/hotbar.tscn" id="5_tefeu"]
 [ext_resource type="Texture2D" uid="uid://xtc75yx7f5mw" path="res://assets/heartIcon.png" id="6_o6xl0"]
-[ext_resource type="Script" uid="uid://b62kq78fi0hjs" path="res://scenes/heal_block.gd" id="8_85g3d"]
 [ext_resource type="PackedScene" uid="uid://db6cnt5b6dee3" path="res://scenes/powerups_manager.tscn" id="8_choun"]
 [ext_resource type="PackedScene" uid="uid://c7jhd2600s4t6" path="res://scenes/bull.tscn" id="10_puvyi"]
 [ext_resource type="Script" path="res://scenes/bull_navigation_region.gd" id="11_lg38m"]
 [ext_resource type="Script" uid="uid://k5xabwpbwicp" path="res://scenes/timer.gd" id="11_trceg"]
 [ext_resource type="Script" uid="uid://b7w00dlihcf4c" path="res://scenes/level.gd" id="12_a8y0u"]
+[ext_resource type="Script" uid="uid://da3d1a0negrei" path="res://scenes/lasso.gd" id="13_trceg"]
+[ext_resource type="Script" uid="uid://pmqfnya7xnts" path="res://scenes/money_bag.gd" id="15_jbj1t"]
+[ext_resource type="PackedScene" uid="uid://c08km8juk18v3" path="res://assets/bagOfMoney.blend" id="16_muem4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -32,13 +35,18 @@ glow_enabled = true
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyhfs"]
 bg_color = Color(0.4491729, 0.6880101, 0.5811239, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_o6xl0"]
-size = Vector3(1, 1.1019897, 1)
+[sub_resource type="CylinderMesh" id="CylinderMesh_eb6dy"]
+top_radius = 0.25
+bottom_radius = 0.3
+height = 0.04
+cap_top = false
+cap_bottom = false
 
-[sub_resource type="BoxMesh" id="BoxMesh_tipki"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_trceg"]
+size = Vector3(0.6, 0.3, 0.6)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o6xl0"]
-albedo_color = Color(3.3691526e-07, 0.6799679, 0.27353048, 1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_jbj1t"]
+size = Vector3(1, 2, 1)
 
 [node name="Main" type="Node3D" unique_id=1416680920]
 top_level = true
@@ -58,12 +66,13 @@ script = ExtResource("11_lg38m")
 [node name="map" parent="BullNavigationRegion" unique_id=710770169 instance=ExtResource("3_trceg")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -0.33, 0)
 collision_priority = 0.27
+script = ExtResource("4_a8y0u")
 
 [node name="CharacterBody3D" parent="." unique_id=603631026 instance=ExtResource("2_0wfyh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 6)
 
 [node name="Chest" parent="." unique_id=1127407156 instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, -0.25, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, -2.481555, -10)
 
 [node name="RedBull" parent="." unique_id=1858473882 instance=ExtResource("10_puvyi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, -8)
@@ -84,7 +93,7 @@ move_speed = 1.7
 prediction_distance = 4.0
 
 [node name="OrangeBull" parent="." unique_id=2100780902 instance=ExtResource("10_puvyi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.25, 8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7412062, 0.25, 5.928953)
 bull_type = 3
 bull_color = Color(1, 0.59607846, 0.15686275, 1)
 move_speed = 1.5
@@ -211,19 +220,27 @@ scale = Vector2(0.66, 0.66)
 horizontal_alignment = 1
 script = ExtResource("12_a8y0u")
 
-[node name="Heal block" type="Area3D" parent="." unique_id=1528385533]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.355354, 0, 7.7879252)
-script = ExtResource("8_85g3d")
+[node name="Lasso" type="Area3D" parent="." unique_id=696973867]
+visible = false
+script = ExtResource("13_trceg")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Heal block" unique_id=592340564]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0169468, 0.04960352, 0.4395728)
-shape = SubResource("BoxShape3D_o6xl0")
+[node name="Model" type="MeshInstance3D" parent="Lasso" unique_id=1217190888]
+mesh = SubResource("CylinderMesh_eb6dy")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Heal block" unique_id=982490828]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0169468, 0, 0.41960979)
-mesh = SubResource("BoxMesh_tipki")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_o6xl0")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lasso" unique_id=1054307519]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.016934037, 0)
+shape = SubResource("BoxShape3D_trceg")
+
+[node name="MoneyBag" type="Area3D" parent="." unique_id=1280673808]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.8870673, 0)
+script = ExtResource("15_jbj1t")
+
+[node name="bagOfMoney" parent="MoneyBag" unique_id=347711400 instance=ExtResource("16_muem4")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MoneyBag" unique_id=2100543794]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.31375146, 0)
+shape = SubResource("BoxShape3D_jbj1t")
 
 [connection signal="jump_power" from="CharacterBody3D" to="CanvasLayer/Powerups_Manager2" method="_on_character_body_3d_jump_power"]
 [connection signal="powerup_collected" from="Chest" to="." method="_on_powerup_collected"]
@@ -237,10 +254,17 @@ surface_material_override/0 = SubResource("StandardMaterial3D_o6xl0")
 [connection signal="powerup_used" from="CanvasLayer/Hotbar" to="OrangeBull" method="_on_hotbar_powerup_used"]
 [connection signal="powerup_used" from="CanvasLayer/Hotbar" to="GreenBull" method="_on_hotbar_powerup_used"]
 [connection signal="powerup_used" from="CanvasLayer/Hotbar" to="CanvasLayer/Powerups_Manager2" method="_on_powerup_used"]
+[connection signal="powerup_used" from="CanvasLayer/Hotbar" to="Lasso" method="_on_hotbar_powerup_used"]
 [connection signal="timeout" from="CanvasLayer/Timer/Timer2" to="RedBull" method="_on_timer_2_timeout"]
 [connection signal="timeout" from="CanvasLayer/Timer/Timer2" to="PinkBull" method="_on_timer_2_timeout"]
 [connection signal="timeout" from="CanvasLayer/Timer/Timer2" to="CyanBull" method="_on_timer_2_timeout"]
 [connection signal="timeout" from="CanvasLayer/Timer/Timer2" to="OrangeBull" method="_on_timer_2_timeout"]
 [connection signal="timeout" from="CanvasLayer/Timer/Timer2" to="CanvasLayer/Timer" method="_on_timer_2_timeout"]
 [connection signal="timeout" from="CanvasLayer/Timer/Timer2" to="CanvasLayer/Timer/Level" method="_on_timer_2_timeout"]
-[connection signal="body_entered" from="Heal block" to="Heal block" method="_on_body_entered"]
+[connection signal="body_entered" from="Lasso" to="Lasso" method="_on_body_entered"]
+[connection signal="body_entered" from="MoneyBag" to="MoneyBag" method="_on_body_entered"]
+[connection signal="moneyBag" from="MoneyBag" to="RedBull" method="_on_money_bag_money_bag"]
+[connection signal="moneyBag" from="MoneyBag" to="PinkBull" method="_on_money_bag_money_bag"]
+[connection signal="moneyBag" from="MoneyBag" to="CyanBull" method="_on_money_bag_money_bag"]
+[connection signal="moneyBag" from="MoneyBag" to="OrangeBull" method="_on_money_bag_money_bag"]
+[connection signal="moneyBag" from="MoneyBag" to="GreenBull" method="_on_money_bag_money_bag"]

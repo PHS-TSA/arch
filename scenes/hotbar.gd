@@ -9,7 +9,9 @@ var contains: Array[bool] = []
 var selected: int
 var no_pick := false
 
-@onready var ogstyle: StyleBoxFlat = get_child(0).find_child("Panel").get_theme_stylebox("panel").duplicate()
+@onready var ogstyle: StyleBoxFlat = (
+	get_child(0).find_child("Panel").get_theme_stylebox("panel").duplicate()
+)
 @onready var newstyle: StyleBoxFlat = ogstyle.duplicate()
 
 
@@ -19,6 +21,8 @@ func _ready() -> void:
 		contains.append(false)
 	for child in get_children():
 		child.no_pickup.connect(_on_last_slot_no_pickup)
+	selected = 0
+	get_child(selected).find_child("Panel").add_theme_stylebox_override("panel", newstyle)
 
 
 func _input(event: InputEvent) -> void:
@@ -41,6 +45,8 @@ func _input(event: InputEvent) -> void:
 				)
 				selected = number_pressed
 		elif event.keycode == KEY_E:
+			if selected < 0 or selected >= get_child_count():
+				return
 			if contains[get_child(selected).get_index()]:
 				powerup_used.emit(get_child(selected).empty())
 				no_pick = false

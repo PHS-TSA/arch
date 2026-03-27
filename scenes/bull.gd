@@ -1,3 +1,4 @@
+class_name Bull
 extends CharacterBody3D
 
 enum BullType {
@@ -8,13 +9,15 @@ enum BullType {
 	GREEN,
 }
 
+static var scared: bool = false
+
 @export var bull_type: BullType = BullType.RED
 @export var bull_color: Color = Color(1.0, 0.21568628, 0.21176471, 1.0)
 @export_range(0.5, 10.0, 0.1) var move_speed: float = 2.5
 @export_range(0.1, 5.0, 0.1) var retarget_interval: float = 0.4
 @export_range(0.5, 8.0, 0.1) var prediction_distance: float = 3.0
 @export_range(1.0, 10.0, 0.1) var flee_distance: float = 5.0
-@export_range(0.2, 5.0, 0.1) var teleport_interval: float = 10.
+@export_range(0.2, 5.0, 0.1) var teleport_interval: float = 30.
 @export_range(0.5, 6.0, 0.1) var teleport_radius_min: float = 1.4
 @export_range(1.0, 8.0, 0.1) var teleport_radius_max: float = 3.0
 @export_range(0.5, 4.0, 0.1) var min_safe_teleport_distance: float = 1.2
@@ -26,6 +29,7 @@ var current_target_position: Vector3 = Vector3.ZERO
 var freeze_timers: int = 0
 var slow_timers: int = 0
 var freeze_range: float = 2.5
+var starting_pos
 
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var mesh_instance_3d: MeshInstance3D = $CollisionShape3D/MeshInstance3D
@@ -37,8 +41,9 @@ func _ready() -> void:
 	navigation_agent.path_desired_distance = 0.5
 	navigation_agent.target_desired_distance = 0.5
 	retarget_cooldown = randf_range(1. / Inventory.level, retarget_interval)
-	teleport_cooldown = randf_range(6. - Inventory.level, teleport_interval)
+	teleport_cooldown = _get_green_teleport_cooldown()
 	actor_setup.call_deferred()
+	starting_pos = self.position
 
 
 func _physics_process(delta: float) -> void:
@@ -47,11 +52,9 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector3.ZERO
 		move_and_slide()
 		return
-
 	if bull_type == BullType.GREEN:
 		_process_green(delta)
 		return
-
 	_process_navigation(delta)
 
 
@@ -99,9 +102,16 @@ func _process_green(delta: float) -> void:
 	teleport_cooldown -= delta
 	if teleport_cooldown <= 0.0:
 		global_position = _find_green_teleport_target()
-		teleport_cooldown = teleport_interval
+		teleport_cooldown = _get_green_teleport_cooldown()
 
 	move_and_slide()
+
+
+func _get_green_teleport_cooldown() -> float:
+	var min_cd := 15.0 - Inventory.level * 2.0
+	min_cd = maxf(0.1, min_cd)
+	var max_cd := maxf(min_cd, teleport_interval)
+	return randf_range(min_cd, max_cd)
 
 
 func _retarget() -> void:
@@ -239,14 +249,12 @@ func _navigation_map_ready() -> bool:
 func _get_movement_target() -> Vector3:
 	if not navigation_agent.is_navigation_finished():
 		return navigation_agent.get_next_path_position()
-
 	return current_target_position
 
 
 func _ensure_player() -> void:
 	if is_instance_valid(player):
 		return
-
 	player = _get_player()
 
 
@@ -271,7 +279,10 @@ func _apply_color() -> void:
 
 func _on_damage_area_body_entered(body: Node3D) -> void:
 	if body is Player:
-		Lives.take_damage()
+		if not scared:
+			Lives.take_damage()
+		else:
+			self.position = starting_pos
 
 
 func _on_timer_2_timeout() -> void:
@@ -281,8 +292,6 @@ func _on_timer_2_timeout() -> void:
 func _on_hotbar_powerup_used(powerup: Inventory.Powerup) -> void:
 	if powerup == Inventory.Powerup.FREEZE:
 		_ensure_player()
-		if player == null:
-			return
 		if global_position.distance_to(player.global_position) > freeze_range:
 			return
 		freeze_timers += 1
@@ -302,8 +311,26 @@ func _base_move_speed() -> float:
 	return (1 + Inventory.level / 5) * 2.5
 
 
+func _get_scared() -> void:
+	scared = true
+	var material := StandardMaterial3D.new()
+	material.albedo_color = Color(0.126, 0.362, 1.0, 1.0)
+	mesh_instance_3d.material_override = material
+	await get_tree().create_timer(3).timeout
+	scared = false
+	material.albedo_color = bull_color
+	mesh_instance_3d.material_override = material
+
+
 func _update_move_speed() -> void:
 	if freeze_timers > 0:
 		move_speed = 0.0
 		return
 	move_speed = _base_move_speed() * pow(0.5, slow_timers)
+	teleport_interval = 30. - Inventory.level * 4
+
+func _on_money_bag_money_bag() -> void:
+	slow_timers += 1
+	_get_scared()
+	await get_tree().create_timer(3).timeout
+	slow_timers = maxi(0, slow_timers - 1)
