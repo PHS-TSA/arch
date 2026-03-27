@@ -100,6 +100,7 @@ jobs:
   deploy:
     name: Deploy to Deno Deploy
     needs: build
+    if: ${{ (github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule') && github.repository_owner == 'PHS-TSA' }}
     runs-on: ubuntu-latest
     timeout-minutes: 2
     permissions:
