@@ -5,14 +5,16 @@ signal hearts_changed(new_hearts: int)
 const MAX_HEARTS := 3
 
 var hearts := MAX_HEARTS
-
 var final_time_seconds := ""
 
-func set_time(time) -> void:
+
+func set_time(time: String) -> void:
 	final_time_seconds = time
 
+
 func get_time() -> String:
-	return final_time_seconds 
+	return final_time_seconds
+
 
 func take_damage() -> void:
 	if hearts > 0:
