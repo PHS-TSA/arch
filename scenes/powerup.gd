@@ -5,7 +5,7 @@ signal powerup_collected(powerup: Inventory.Powerup)
 var collected: bool = false
 var pickup: bool = true
 
-@onready var powerup: Inventory.Powerup = Inventory.Powerup.values().pick_random()
+@onready var powerup: Inventory.Powerup = Inventory.Powerup.values()[randi_range(0,3)]
 @onready var horseshoe: Node3D = $horseShoe
 
 

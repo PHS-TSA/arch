@@ -1,0 +1,2 @@
+class_name GameMap
+extends StaticBody3D
