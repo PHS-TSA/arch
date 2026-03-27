@@ -1,9 +1,25 @@
 extends Label
 
-var seconds_left := 30
+const ROUND_DURATION_SECONDS := 30
+
+var seconds_left := ROUND_DURATION_SECONDS
+
 
 func _ready() -> void:
 	update_text()
+
+
+func update_text() -> void:
+	var minutes := int(seconds_left / 60.0)
+	var seconds := seconds_left % 60
+	text = str(minutes) + ":" + str(seconds).pad_zeros(2)
+
+	var elapsed_seconds := ROUND_DURATION_SECONDS - seconds_left
+	var elapsed_minutes := int(elapsed_seconds / 60.0)
+	var elapsed_remainder := elapsed_seconds % 60
+	var elapsed_text := str(elapsed_minutes) + ":" + str(elapsed_remainder).pad_zeros(2)
+	Lives.set_time(elapsed_text)
+
 
 func _on_timer_2_timeout() -> void:
 	seconds_left -= 1
@@ -15,9 +31,3 @@ func _on_timer_2_timeout() -> void:
 		return
 
 	update_text()
-
-func update_text() -> void:
-	var minutes = seconds_left / 60
-	var seconds = seconds_left % 60
-	text = str(minutes) + ":" + str(seconds).pad_zeros(2)
-	Lives.set_time(text)

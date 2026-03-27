@@ -10,6 +10,7 @@ var final_time_seconds := ""
 
 func set_time(time) -> void:
 	final_time_seconds = time
+
 func get_time() -> String:
 	return final_time_seconds 
 
