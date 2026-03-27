@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://xtc75yx7f5mw" path="res://assets/heartIcon.png" id="6_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://db6cnt5b6dee3" path="res://scenes/powerups_manager.tscn" id="8_choun"]
 [ext_resource type="PackedScene" uid="uid://c7jhd2600s4t6" path="res://scenes/bull.tscn" id="10_puvyi"]
-[ext_resource type="Script" path="res://scenes/bull_navigation_region.gd" id="11_lg38m"]
+[ext_resource type="Script" uid="uid://ba2powgkdusm2" path="res://scenes/bull_navigation_region.gd" id="11_lg38m"]
 [ext_resource type="Script" uid="uid://k5xabwpbwicp" path="res://scenes/timer.gd" id="11_trceg"]
 [ext_resource type="Script" uid="uid://b7w00dlihcf4c" path="res://scenes/level.gd" id="12_a8y0u"]
 [ext_resource type="Script" uid="uid://da3d1a0negrei" path="res://scenes/lasso.gd" id="13_trceg"]
@@ -32,8 +32,41 @@ glow_enabled = true
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_8s68r"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyhfs"]
-bg_color = Color(0.4491729, 0.6880101, 0.5811239, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s0hfq"]
+bg_color = Color(0.12941177, 0.09411765, 0.05490196, 0.82)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.9137255, 0.78039217, 0.45882353, 0.95)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4dnrn"]
+bg_color = Color(0.35686275, 0.7490196, 0.4627451, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_s7l8q"]
+font_size = 38
+font_color = Color(1, 0.96862745, 0.84705883, 1)
+outline_size = 8
+outline_color = Color(0.14509805, 0.08235294, 0.03529412, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6sn8e"]
+font_size = 20
+font_color = Color(1, 0.9098039, 0.6666667, 1)
+outline_size = 5
+outline_color = Color(0.14509805, 0.08235294, 0.03529412, 1)
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_offset = Vector2(0, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_eb6dy"]
 top_radius = 0.25
@@ -138,14 +171,22 @@ texture = ExtResource("6_o6xl0")
 
 [node name="Stamina_Bar" type="ProgressBar" parent="CanvasLayer" unique_id=1299334316]
 unique_name_in_owner = true
-anchors_preset = 2
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -63.0
-offset_right = 372.0
+offset_left = -535.0
+offset_top = -38.0
+offset_right = -195.0
+offset_bottom = -10.0
+grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/background = SubResource("StyleBoxFlat_jyhfs")
+theme_override_styles/background = SubResource("StyleBoxFlat_s0hfq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_4dnrn")
 max_value = 50.0
+rounded = true
+show_percentage = false
 
 [node name="Hotbar" parent="CanvasLayer" unique_id=507145534 instance=ExtResource("5_tefeu")]
 anchors_preset = 7
@@ -171,15 +212,18 @@ offset_bottom = 40.0
 grow_horizontal = 0
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/MarginContainer" unique_id=204603298]
+custom_minimum_size = Vector2(220, 220)
 layout_mode = 2
 
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer/MarginContainer/SubViewportContainer" unique_id=1900084832]
 handle_input_locally = false
-size = Vector2i(300, 200)
+size = Vector2i(220, 220)
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="CanvasLayer/MarginContainer/SubViewportContainer/SubViewport" unique_id=845717522]
-transform = Transform3D(1, 0, 0, 0, -0.011030302, 0.9999392, 0, -0.9999392, -0.011030302, 0.42624187, 14.341629, 0)
+transform = Transform3D(1, 0, 0, 0, -0.011030302, 0.9999392, 0, -0.9999392, -0.011030302, 0, 18, 0)
+projection = 1
+size = 28.0
 
 [node name="Powerups_Manager2" parent="CanvasLayer" unique_id=473409895 instance=ExtResource("8_choun")]
 anchors_preset = 3
@@ -195,12 +239,17 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="Timer" type="Label" parent="CanvasLayer" unique_id=2122741613]
-offset_left = 498.0
-offset_top = 21.999998
-offset_right = 538.0
-offset_bottom = 45.0
-scale = Vector2(2.9728072, 2.9680424)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.0
+offset_top = 18.0
+offset_right = 95.0
+offset_bottom = 66.0
+grow_horizontal = 2
 text = "5:00"
+label_settings = SubResource("LabelSettings_s7l8q")
+horizontal_alignment = 1
 script = ExtResource("11_trceg")
 
 [node name="Timer2" type="Timer" parent="CanvasLayer/Timer" unique_id=339867932]
@@ -211,12 +260,12 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -15.627029
-offset_top = 17.519966
-offset_right = 24.37297
-offset_bottom = 40.519966
+offset_left = -70.0
+offset_top = 42.0
+offset_right = 70.0
+offset_bottom = 72.0
 grow_horizontal = 2
-scale = Vector2(0.66, 0.66)
+label_settings = SubResource("LabelSettings_6sn8e")
 horizontal_alignment = 1
 script = ExtResource("12_a8y0u")
 

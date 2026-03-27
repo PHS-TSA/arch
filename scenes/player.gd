@@ -6,6 +6,7 @@ signal jump_power
 const SPEED := 5.0
 const JUMP_VELOCITY := 4.5
 const LERP_SPEED := 10.0
+const VISUAL_YAW_OFFSET := PI
 
 var max_speed := 5
 var sprint_speed := 8
@@ -17,11 +18,12 @@ var stamina_regen: float = 10.0
 var is_exhausted: bool = false
 var recovery_threshold: float = 20.0
 var jump_mult := 1.0
+var horizontal_facing := Vector3.FORWARD
 
 #.
 @onready var stamina_bar: ProgressBar = %Stamina_Bar
 @onready var spring_arm_3d: SpringArm3D = $SpringArm3D
-@onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
+@onready var mesh_instance_3d: Node3D = $VisualRoot
 
 static var player := self
 
@@ -69,10 +71,11 @@ func _physics_process(delta: float) -> void:
 	stamina = clamp(stamina, 0, max_stamina)
 
 	if direction:
+		horizontal_facing = direction.normalized()
 		velocity.x = direction.x * max_speed
 		velocity.z = direction.z * max_speed
 
-		var target_angle := atan2(direction.x, direction.z)
+		var target_angle := atan2(direction.x, direction.z) + VISUAL_YAW_OFFSET
 		mesh_instance_3d.rotation.y = lerp_angle(
 			mesh_instance_3d.rotation.y,
 			target_angle,
@@ -94,12 +97,10 @@ func _physics_process(delta: float) -> void:
 
 
 func get_horizontal_facing() -> Vector3:
-	var facing := -mesh_instance_3d.global_transform.basis.z
-	facing.y = 0.0
-	if facing.is_zero_approx():
+	if horizontal_facing.is_zero_approx():
 		return Vector3.FORWARD
 
-	return facing.normalized()
+	return horizontal_facing.normalized()
 
 
 func _on_powerup_used(powerup: Inventory.Powerup) -> void:

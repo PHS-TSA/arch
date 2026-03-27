@@ -2,10 +2,7 @@
 
 [ext_resource type="Script" uid="uid://br0xrxl8kj8ot" path="res://scenes/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dv72bdn3u5wau" path="res://scenes/camera_spring_arm.gd" id="2_g2els"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_onrkg"]
-radius = 0.25
-height = 1.0
+[ext_resource type="PackedScene" path="res://assets/horse.blend" id="3_7wj6b"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i3pqv"]
 radius = 0.25830078
@@ -15,9 +12,10 @@ height = 1.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9034537, 0)
 script = ExtResource("1_3vyb7")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=770933360]
-transform = Transform3D(1, 0, 0, 0, 0.9583275, 0.28567162, 0, -0.28567162, 0.9583275, 0, 0.014151812, 0)
-mesh = SubResource("CapsuleMesh_onrkg")
+[node name="VisualRoot" type="Node3D" parent="."]
+
+[node name="HorseModel" parent="VisualRoot" instance=ExtResource("3_7wj6b")]
+transform = Transform3D(0, 0, 0.5, 0, 0.5, 0, -0.5, 0, 0, -0.1225, -0.45, 0.3805)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=453743573]
 shape = SubResource("CapsuleShape3D_i3pqv")

@@ -7,6 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://bvr3s6nhgcfo1" path="res://assets/wantedPoster.png" id="3_v3hpu"]
 [ext_resource type="Script" uid="uid://bxpjcbyrfyfpf" path="res://scenes/label_3.gd" id="6_v3hpu"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_7n3y2"]
+font_size = 24
+font_color = Color(0.27058825, 0.15686275, 0.07058824, 1)
+outline_size = 4
+outline_color = Color(0.9137255, 0.827451, 0.627451, 0.8)
+shadow_color = Color(0, 0, 0, 0.18)
+shadow_offset = Vector2(0, 1)
+
 [node name="GameOver" type="Control" unique_id=800289142]
 layout_mode = 3
 anchors_preset = 15
@@ -46,12 +54,15 @@ icon = ExtResource("3_racf3")
 
 [node name="Label3" type="Label" parent="." unique_id=172401417]
 layout_mode = 0
-offset_left = 470.0
-offset_top = 479.0
-offset_right = 509.0
-offset_bottom = 503.0
-scale = Vector2(1.9081123, 1.9081123)
+offset_left = 448.0
+offset_top = 425.0
+offset_right = 643.0
+offset_bottom = 580.0
 text = "???"
+label_settings = SubResource("LabelSettings_7n3y2")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 script = ExtResource("6_v3hpu")
 
 [connection signal="pressed" from="PlayAgain" to="." method="_on_play_again_pressed"]

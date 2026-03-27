@@ -1,4 +1,4 @@
 extends Label
 
 func _ready() -> void:
-	text = Lives.get_time()
+	text = "%s, Level %d" % [Lives.get_time(), Inventory.level]

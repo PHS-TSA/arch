@@ -1,6 +1,9 @@
 class_name Bull
 extends CharacterBody3D
 
+const TURN_SPEED := 8.0
+const VISUAL_YAW_OFFSET := PI
+
 enum BullType {
 	RED,
 	PINK,
@@ -32,11 +35,12 @@ var freeze_range: float = 2.5
 var starting_pos
 
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
-@onready var mesh_instance_3d: MeshInstance3D = $CollisionShape3D/MeshInstance3D
+@onready var angry_bull_visual: Node3D = $VisualRoot/AngryBullVisual
+@onready var scared_bull_visual: Node3D = $VisualRoot/ScaredBullVisual
 
 
 func _ready() -> void:
-	_apply_color()
+	_show_scared_visual(false)
 	navigation_agent.set_navigation_map(get_world_3d().navigation_map)
 	navigation_agent.path_desired_distance = 0.5
 	navigation_agent.target_desired_distance = 0.5
@@ -86,6 +90,7 @@ func _process_navigation(delta: float) -> void:
 		var direction: Vector3 = horizontal_offset.normalized()
 		velocity.x = direction.x * move_speed
 		velocity.z = direction.z * move_speed
+		_face_direction(direction, delta)
 
 	move_and_slide()
 
@@ -271,10 +276,17 @@ func _get_player() -> Player:
 	return sibling_player as Player
 
 
-func _apply_color() -> void:
-	var material := StandardMaterial3D.new()
-	material.albedo_color = bull_color
-	mesh_instance_3d.material_override = material
+func _show_scared_visual(is_scared: bool) -> void:
+	angry_bull_visual.visible = not is_scared
+	scared_bull_visual.visible = is_scared
+
+
+func _face_direction(direction: Vector3, delta: float) -> void:
+	if direction.is_zero_approx():
+		return
+
+	var target_angle := atan2(direction.x, direction.z) + VISUAL_YAW_OFFSET
+	rotation.y = lerp_angle(rotation.y, target_angle, delta * TURN_SPEED)
 
 
 func _on_damage_area_body_entered(body: Node3D) -> void:
@@ -313,13 +325,10 @@ func _base_move_speed() -> float:
 
 func _get_scared() -> void:
 	scared = true
-	var material := StandardMaterial3D.new()
-	material.albedo_color = Color(0.126, 0.362, 1.0, 1.0)
-	mesh_instance_3d.material_override = material
+	_show_scared_visual(true)
 	await get_tree().create_timer(3).timeout
 	scared = false
-	material.albedo_color = bull_color
-	mesh_instance_3d.material_override = material
+	_show_scared_visual(false)
 
 
 func _update_move_speed() -> void:
