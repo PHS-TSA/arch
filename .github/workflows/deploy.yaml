@@ -54,6 +54,31 @@ jobs:
           include-templates: true
       - name: Install Blender
         run: sudo apt install blender
+      - name: Configure Blender path for Godot
+        shell: bash
+        run: |
+          set -euo pipefail
+          BLENDER_BIN="$(command -v blender)"
+          mkdir -p "$HOME/.config/godot"
+
+          for SETTINGS_FILE in \
+            "$HOME/.config/godot/editor_settings-4.6.tres" \
+            "$HOME/.config/godot/editor_settings-4.tres"; do
+            if [[ ! -f "$SETTINGS_FILE" ]]; then
+              {
+                printf '%s\n' '[gd_resource type="EditorSettings" format=3]'
+                printf '\n[resource]\n'
+                printf 'filesystem/import/blender/blender_path = "%s"\n' "$BLENDER_BIN"
+                printf 'filesystem/import/blender/rpc_port = 0\n'
+              } > "$SETTINGS_FILE"
+            elif grep -q '^filesystem/import/blender/blender_path' "$SETTINGS_FILE"; then
+              sed -i "s|^filesystem/import/blender/blender_path.*|filesystem/import/blender/blender_path = \"$BLENDER_BIN\"|" "$SETTINGS_FILE"
+            else
+              printf '\nfilesystem/import/blender/blender_path = "%s"\nfilesystem/import/blender/rpc_port = 0\n' "$BLENDER_BIN" >> "$SETTINGS_FILE"
+            fi
+          done
+
+          echo "Configured blender path: $BLENDER_BIN"
       - name: 🔬 Verify setup
         run: godot --version
       - name: 🔌 Make and delete directories
@@ -79,7 +104,9 @@ jobs:
       group: deploy-${{ github.ref }}
       cancel-in-progress: true
 
-    environment: production
+    environment:
+      name: production
+      url: https://wild-west-windfall.phs-tsa-ea.deno.net/
 
     steps:
       - name: 📚 Git checkout
