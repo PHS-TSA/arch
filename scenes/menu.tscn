@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://df7bmyymp1dwu"]
+[gd_scene format=3 uid="uid://bvv3q6m42dcqa"]
 
 [ext_resource type="Script" uid="uid://de8uj3mc6vmjr" path="res://scenes/menu.gd" id="1_con2f"]
 [ext_resource type="Texture2D" uid="uid://btso7pevrc1fu" path="res://assets/menuBackground.png" id="2_mhnvy"]
@@ -44,10 +44,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -154.0
-offset_top = -30.0
-offset_right = 1119.0854
-offset_bottom = 220.00006
+offset_left = -153.0
+offset_top = -105.0
+offset_right = 1120.0854
+offset_bottom = 145.00006
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.24000001, 0.24000001)
@@ -74,5 +74,21 @@ scale = Vector2(0.16131614, 0.16131614)
 theme_override_font_sizes/font_size = 34
 theme_override_icons/icon = ExtResource("4_mhnvy")
 
+[node name="Button3" type="Button" parent="." unique_id=767068414]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.0
+offset_top = -29.0
+offset_right = 140.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Instructions"
+
 [connection signal="pressed" from="Button" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]
