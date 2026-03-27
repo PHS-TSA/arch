@@ -77,6 +77,8 @@ jobs:
       group: deploy-${{ github.ref }}
       cancel-in-progress: true
 
+    environment: production
+
     steps:
       - name: 📚 Git checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -98,3 +100,5 @@ jobs:
           path: "./build"
       - name: 🔧 Deploy
         run: deno deploy --org phs-tsa-ea --app wild-west-windfall --prod
+        env:
+          DENO_DEPLOY_TOKEN: ${{ secrets.DENO_DEPLOY_TOKEN }}
