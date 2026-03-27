@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://0ol4qu7b2ja8"]
 
-[ext_resource type="PackedScene" uid="uid://bxxenrj7af57f" path="res://scenes/map.tscn" id="1_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://lmdbwh0i6462" path="res://scenes/map.tscn" id="1_0wfyh"]
 [ext_resource type="Script" uid="uid://dyqrxc5w7krra" path="res://scripts/inventory.gd" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://c2xhoyi0dd6ly" path="res://scenes/player.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://jmjlq1p7rbbb" path="res://scenes/chest.tscn" id="4_jyhfs"]
@@ -10,8 +10,9 @@
 [ext_resource type="Script" uid="uid://b62kq78fi0hjs" path="res://scenes/heal_block.gd" id="8_85g3d"]
 [ext_resource type="PackedScene" uid="uid://db6cnt5b6dee3" path="res://scenes/powerups_manager.tscn" id="8_choun"]
 [ext_resource type="Script" uid="uid://dswtrogwrrxot" path="res://scenes/damage_block.gd" id="9_choun"]
-[ext_resource type="PackedScene" path="res://scenes/bull.tscn" id="10_puvyi"]
-[ext_resource type="Script" path="res://scenes/bull_navigation_region.gd" id="11_lg38m"]
+[ext_resource type="PackedScene" uid="uid://c7jhd2600s4t6" path="res://scenes/bull.tscn" id="10_puvyi"]
+[ext_resource type="Script" uid="uid://ba2powgkdusm2" path="res://scenes/bull_navigation_region.gd" id="11_lg38m"]
+[ext_resource type="Script" uid="uid://k5xabwpbwicp" path="res://scenes/timer.gd" id="11_trceg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -186,6 +187,18 @@ offset_bottom = 57.0
 grow_horizontal = 0
 grow_vertical = 0
 
+[node name="Timer" type="Label" parent="CanvasLayer" unique_id=2122741613]
+offset_left = 498.0
+offset_top = 21.999998
+offset_right = 538.0
+offset_bottom = 45.0
+scale = Vector2(2.9728072, 2.9680424)
+text = "5:00"
+script = ExtResource("11_trceg")
+
+[node name="Timer2" type="Timer" parent="CanvasLayer/Timer" unique_id=339867932]
+autostart = true
+
 [node name="Heal block" type="Area3D" parent="." unique_id=1528385533]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.355354, 0, 7.7879252)
 script = ExtResource("8_85g3d")
@@ -219,5 +232,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_tipki")
 [connection signal="pickup" from="CanvasLayer/Hotbar" to="Chest" method="on_hotbar_pickup"]
 [connection signal="powerup_used" from="CanvasLayer/Hotbar" to="CharacterBody3D" method="_on_powerup_used"]
 [connection signal="powerup_used" from="CanvasLayer/Hotbar" to="CanvasLayer/Powerups_Manager2" method="_on_powerup_used"]
+[connection signal="timeout" from="CanvasLayer/Timer/Timer2" to="CanvasLayer/Timer" method="_on_timer_2_timeout"]
 [connection signal="body_entered" from="Heal block" to="Heal block" method="_on_body_entered"]
 [connection signal="body_entered" from="Damage block" to="Damage block" method="_on_body_entered"]

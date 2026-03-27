@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://bk2jor6ct8ejc"]
+
+[ext_resource type="Script" uid="uid://c6kt0al3t0sk1" path="res://scenes/game_over.gd" id="1_ftari"]
+[ext_resource type="Texture2D" uid="uid://dr4nmqc0kb8lh" path="res://assets/win_screen.png" id="2_1txte"]
+[ext_resource type="Texture2D" uid="uid://fp8o6a0210dp" path="res://assets/StartLogo.png" id="4_fkf4o"]
+[ext_resource type="Texture2D" uid="uid://d1jui1qfgrgeh" path="res://assets/Exit.png" id="5_3u7xm"]
+
+[node name="GameOver" type="Control" unique_id=800289142]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ftari")
+
+[node name="GameOverScreen" type="Sprite2D" parent="." unique_id=1770013267]
+position = Vector2(581, 328)
+scale = Vector2(0.60370374, 0.6037037)
+texture = ExtResource("2_1txte")
+
+[node name="PlayAgain" type="Button" parent="." unique_id=134879514]
+layout_mode = 0
+offset_left = 409.99997
+offset_top = 291.99994
+offset_right = 2188.0
+offset_bottom = 594.99994
+scale = Vector2(0.21897106, 0.21897106)
+icon = ExtResource("4_fkf4o")
+
+[node name="Exit" type="Button" parent="." unique_id=958225531]
+layout_mode = 0
+offset_left = 417.00006
+offset_top = 372.00006
+offset_right = 2195.0
+offset_bottom = 675.00006
+scale = Vector2(0.21388854, 0.21388854)
+icon = ExtResource("5_3u7xm")
+
+[connection signal="pressed" from="PlayAgain" to="." method="_on_play_again_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]

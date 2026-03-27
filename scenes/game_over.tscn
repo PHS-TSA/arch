@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://fp8o6a0210dp" path="res://assets/StartLogo.png" id="2_tbwuq"]
 [ext_resource type="Texture2D" uid="uid://d1jui1qfgrgeh" path="res://assets/Exit.png" id="3_racf3"]
 [ext_resource type="Texture2D" uid="uid://bvr3s6nhgcfo1" path="res://assets/wantedPoster.png" id="3_v3hpu"]
+[ext_resource type="Script" uid="uid://bxpjcbyrfyfpf" path="res://scenes/label_3.gd" id="6_v3hpu"]
 
 [node name="GameOver" type="Control" unique_id=800289142]
 layout_mode = 3
@@ -43,29 +44,15 @@ offset_bottom = 875.00006
 scale = Vector2(0.21388854, 0.21388854)
 icon = ExtResource("3_racf3")
 
-[node name="Label" type="Label" parent="." unique_id=1714920275]
-layout_mode = 0
-offset_left = 453.0
-offset_top = 458.0
-offset_right = 493.0
-offset_bottom = 481.0
-text = "???"
-
-[node name="Label2" type="Label" parent="." unique_id=452136701]
-layout_mode = 0
-offset_left = 416.0
-offset_top = 496.0
-offset_right = 456.0
-offset_bottom = 519.0
-text = "???"
-
 [node name="Label3" type="Label" parent="." unique_id=172401417]
 layout_mode = 0
-offset_left = 406.0
-offset_top = 516.0
-offset_right = 446.0
-offset_bottom = 539.0
+offset_left = 470.0
+offset_top = 479.0
+offset_right = 509.0
+offset_bottom = 503.0
+scale = Vector2(1.9081123, 1.9081123)
 text = "???"
+script = ExtResource("6_v3hpu")
 
 [connection signal="pressed" from="PlayAgain" to="." method="_on_play_again_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
