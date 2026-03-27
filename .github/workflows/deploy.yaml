@@ -52,6 +52,8 @@ jobs:
           version: 4.6.1
           use-dotnet: false
           include-templates: true
+      - name: Install Blender
+        run: sudo apt install blender
       - name: 🔬 Verify setup
         run: godot --version
       - name: 🔌 Make and delete directories
