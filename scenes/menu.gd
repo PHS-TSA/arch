@@ -2,7 +2,7 @@ extends Control
 
 
 func _on_start_pressed() -> void:
-	print("Start button pressed")
+	Inventory.level = 1
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 
